@@ -1,4 +1,4 @@
-// ===================================================================
+
 // SIDEBAR, GUARD AND USER CHIP
 //
 // This file is loaded by every screen, which makes it the right
@@ -10,14 +10,14 @@
 //
 // It replaces the "Acting as" dropdown in the header, so no
 // screen's HTML has to change.
-// ===================================================================
+
 import { requireAuth, signOut, isHR } from './auth.js';
-// -------------------------------------------------------------------
+
 // WHO MAY OPEN WHAT
 //
 // Everything here is HR only. Employee pages are built on Day 4
 // and are added to EMPLOYEE_GROUPS below as they appear.
-// -------------------------------------------------------------------
+
 const HR_ONLY_PAGES = [
 'dashboard.html',
 'index.html',
@@ -96,9 +96,9 @@ items: [
 ]
 }
 ];
-// -------------------------------------------------------------------
+
 // HELPERS
-// -------------------------------------------------------------------
+
 function safe(text) {
 const div = document.createElement('div');
 div.textContent = text == null ? '' : String(text);
@@ -116,9 +116,9 @@ const path = window.location.pathname;
 const last = path.substring(path.lastIndexOf('/') + 1);
 return last === '' ? 'index.html' : last;
 }
-// -------------------------------------------------------------------
+
 // THE SIDEBAR
-// -------------------------------------------------------------------
+
 function buildNav(employee) {
 const sidebar = document.querySelector('.sidebar');
 if (!sidebar) return;
@@ -126,8 +126,8 @@ const groups = isHR(employee) ? HR_GROUPS : EMPLOYEE_GROUPS;
 const here = currentPage();
 let html = '';
 html += '<div class="sidebar__brand">' +
-'<span class="sidebar__mark">S</span>' +
-'<span class="sidebar__name">SISCO HR</span>' +
+'<span class="sidebar__mark">N</span>' +
+'<span class="sidebar__name">Northwind HR</span>' +
 '</div>';
 html += '<nav class="nav">';
 groups.forEach(function (group) {
@@ -148,13 +148,13 @@ html += '</nav>';
 html += '<div class="sidebar__foot">Trainee build &middot; 2026</div>';
 sidebar.innerHTML = html;
 }
-// -------------------------------------------------------------------
+
 // THE USER CHIP
 //
 // The header already has a <label class="acting"> holding the
 // old dropdown. We replace what is inside it, so not one line of
 // HTML has to change in thirteen files.
-// -------------------------------------------------------------------
+
 function buildChip(employee) {
 const acting = document.querySelector('.acting');
 if (!acting) return;
@@ -180,13 +180,13 @@ await signOut();
 window.location.replace('login.html');
 });
 }
-// -------------------------------------------------------------------
+
 // START
 //
 // The guard runs first and everything waits for it. If nobody is
 // signed in, this page never gets a menu and the visitor is
 // already on their way to the login screen.
-// -------------------------------------------------------------------
+
 async function start() {
 const hrOnly = HR_ONLY_PAGES.indexOf(currentPage()) !== -1;
 const employee = await requireAuth({ hrOnly: hrOnly });
