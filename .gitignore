@@ -1,0 +1,16 @@
+# Editor
+.vscode/
+.idea/
+# Operating system
+.DS_Store
+Thumbs.db
+desktop.ini
+# Node, if it is ever added
+node_modules/
+npm-debug.log*
+# Secrets — never commit these
+.env
+.env.local
+*.key
+# SQLTools scratch files
+*.session.sql
