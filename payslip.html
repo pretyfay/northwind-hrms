@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Payslip · SISCO HRMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?
+family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="body--plain">
+<div class="slip-page">
+<div class="slip-toolbar no-print">
+<a class="btn" href="payroll.html">Back to payroll</a>
+<button class="btn btn--primary" type="button" id="printBtn">
+Print
+</button>
+</div>
+<div class="alert" id="alert" hidden></div>
+<article class="slip" id="slip">
+<div class="state">Loading…</div>
+</article>
+</div>
+<script type="module" src="js/payslip.js"></script>
+<script type="module" src="js/nav.js"></script>
+</body>
+</html>

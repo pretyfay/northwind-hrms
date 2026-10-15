@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add employee · SISCO HRMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+ <aside class="sidebar">
+ <div class="sidebar__brand">
+ <span class="sidebar__mark">S</span>
+ <span class="sidebar__name">SISCO HR</span>
+ </div>
+ <nav class="nav">
+ <div class="nav__group">
+ <div class="nav__label">Main</div>
+<a class="nav__item" href="dashboard.html">Dashboard</a>
+
+ <a class="nav__item is-active" href="index.html">
+ Employees
+ </a>
+ <a class="nav__item" href="attendance.html">Attendance</a>
+</div>
+<div class="nav__group">
+<div class="nav__label">Leave</div>
+<a class="nav__item" href="leave-requests.html">Requests</a>
+<a class="nav__item" href="leave-approval.html">Approval</a>
+<a class="nav__item" href="leave-balances.html">Balances</a>
+ </div>
+<div class="nav__group">
+<div class="nav__label">Payroll</div>
+<a class="nav__item" href="payroll.html">Processing</a>
+
+ </div>
+ <div class="nav__group">
+ <div class="nav__label">Masters</div>
+ <a class="nav__item" href="#">Departments</a>
+ <a class="nav__item" href="#">Designations</a>
+ <a class="nav__item" href="#">Leave types</a>
+ </div>
+ <div class="nav__group">
+ <div class="nav__label">System</div>
+ <a class="nav__item" href="#">Reports</a>
+ <a class="nav__item" href="#">Audit log</a>
+ </div>
+ </nav>
+ <div class="sidebar__foot">Trainee build · 2026</div>
+ </aside>
+ <div class="main">
+ <header class="topbar">
+ <div class="topbar__crumb">
+ <a class="topbar__crumb-root" href="index.html">Employees</a>
+ <span class="topbar__crumb-sep">/</span>
+ <span class="topbar__crumb-here">New</span>
+ </div>
+ <label class="acting">
+ <span class="acting__label">Acting as</span>
+ <select class="select select--ghost" id="userSwitcher">
+ </select>
+ </label>
+ </header>
+ <main class="page page--narrow">
+ <div class="page__head">
+ <div>
+ <h1 class="page__title">Add employee</h1>
+ <p class="page__sub">
+ The employee code is generated automatically
+ </p>
+ </div>
+ </div>
+ <div class="alert" id="alert" hidden></div>
+ <form id="employeeForm" novalidate>
+ <!--  PERSONAL -->
+ <section class="panel section">
+ <div class="section__head">
+ <h2 class="section__title">Personal details</h2>
+ </div>
+ <div class="grid">
+ <div class="field2 field2--wide">
+ <label class="lbl" for="fullName">
+ Full name <span class="req">*</span>
+ </label>
+ <input class="input" id="fullName" name="fullName"
+ type="text" placeholder="Ahmed Ali">
+ <p class="err" data-err="fullName"></p>
+ </div>
+ <div class="field2">
+ <label class="lbl" for="email">Email</label>
+ <input class="input" id="email" name="email"
+ type="email" placeholder="a.ali@sisco.com">
+ <p class="err" data-err="email"></p>
+ </div>
+ <div class="field2">
+ <label class="lbl" for="mobile">Mobile</label>
+ <input class="input" id="mobile" name="mobile"
+ type="text" placeholder="+966 5X XXX XXXX">
+ <p class="err" data-err="mobile"></p>
+ </div>
+ <div class="field2">
+ <label class="lbl" for="dateOfBirth">
+ Date of birth
+ </label>
+ <input class="input" id="dateOfBirth"
+ name="dateOfBirth" type="date">
+ <p class="err" data-err="dateOfBirth"></p>
+ </div>
+ <div class="field2">
+ <label class="lbl" for="gender">Gender</label>
+ <select class="select select--block" id="gender"
+ name="gender">
+ <option value="">Not specified</option>
+ <option value="Male">Male</option>
+ <option value="Female">Female</option>
+ </select>
+ </div>
+ <div class="field2">
+ <label class="lbl" for="nationality">
+ Nationality
+ </label>
+ <input class="input" id="nationality"
+ name="nationality" type="text"
+ placeholder="Saudi">
+ </div>
+ </div>
+ </section>
+ <!--  EMPLOYMENT -->
+ <section class="panel section">
+ <div class="section__head">
+ <h2 class="section__title">Employment</h2>
+ </div>
+ <div class="grid">
+ <div class="field2">
+ <label class="lbl" for="joiningDate">
+ Joining date <span class="req">*</span>
+ </label>
+ <input class="input" id="joiningDate"
+ name="joiningDate" type="date">
+ <p class="err" data-err="joiningDate"></p>
+ </div>
+ <div class="field2">
+ <label class="lbl" for="employmentType">
+ Employment type
+ </label>
+ <select class="select select--block"
+ id="employmentType" name="employmentType">
+ <option value="Full-time">Full-time</option>
+ <option value="Part-time">Part-time</option>
+ <option value="Contract">Contract</option>
+ </select>
+ </div>
+ <div class="field2">
+ <label class="lbl" for="departmentId">
+ Department <span class="req">*</span>
+ </label>
+ <select class="select select--block" id="departmentId"
+ name="departmentId">
+ <option value="">Select…</option>
+ </select>
+ <p class="err" data-err="departmentId"></p>
+ </div>
+ <div class="field2">
+ <label class="lbl" for="designationId">
+ Designation <span class="req">*</span>
+ </label>
+ <select class="select select--block" id="designationId"
+ name="designationId">
+ <option value="">Select…</option>
+ </select>
+ <p class="err" data-err="designationId"></p>
+ </div>
+ <div class="field2">
+ <label class="lbl" for="location">Location</label>
+ <input class="input" id="location" name="location"
+ type="text" placeholder="Dammam">
+ </div>
+ <div class="field2">
+ <label class="lbl" for="managerId">Manager</label>
+ <select class="select select--block" id="managerId"
+ name="managerId">
+ <option value="">No manager</option>
+ </select>
+ <p class="hint">Only active employees appear here</p>
+ </div>
+ </div>
+ </section>
+ <!--  SALARY  -->
+ <section class="panel section">
+ <div class="section__head">
+ <h2 class="section__title">Salary</h2>
+ <p class="section__note">
+ Gross is calculated by the system
+ </p>
+ </div>
+ <div class="grid">
+ <div class="field2">
+ <label class="lbl" for="basicSalary">
+ Basic salary <span class="req">*</span>
+ </label>
+ <div class="money">
+ <span class="money__cur">SAR</span>
+ <input class="input input--money" id="basicSalary"
+ name="basicSalary" type="number"
+ min="0" step="0.01" value="0">
+ </div>
+ <p class="err" data-err="basicSalary"></p>
+ </div>
+ <div class="field2">
+ <label class="lbl" for="housingAllowance">
+ Housing allowance
+ </label>
+ <div class="money">
+ <span class="money__cur">SAR</span>
+ <input class="input input--money"
+ id="housingAllowance"
+ name="housingAllowance" type="number"
+ min="0" step="0.01" value="0">
+ </div>
+ <p class="err" data-err="housingAllowance"></p>
+ </div>
+ <div class="field2">
+ <label class="lbl" for="transportationAllowance">
+ Transportation allowance
+ </label>
+ <div class="money">
+ <span class="money__cur">SAR</span>
+ <input class="input input--money"
+ id="transportationAllowance"
+ name="transportationAllowance" type="number"
+ min="0" step="0.01" value="0">
+ </div>
+ <p class="err" data-err="transportationAllowance"></p>
+ </div>
+ <div class="field2">
+ <label class="lbl" for="otherAllowance">
+ Other allowance
+ </label>
+ <div class="money">
+ <span class="money__cur">SAR</span>
+ <input class="input input--money"
+ id="otherAllowance"
+ name="otherAllowance" type="number"
+ min="0" step="0.01" value="0">
+ </div>
+ <p class="err" data-err="otherAllowance"></p>
+ </div>
+ <div class="field2">
+ <label class="lbl" for="salaryEffectiveDate">
+ Effective date <span class="req">*</span>
+ </label>
+ <input class="input" id="salaryEffectiveDate"
+ name="salaryEffectiveDate" type="date">
+ <p class="err" data-err="salaryEffectiveDate"></p>
+ </div>
+ </div>
+ <div class="total">
+ <span class="total__label">Gross salary</span>
+ <span class="total__value">
+<span class="total__cur">SAR</span>
+ <span id="grossTotal">0.00</span>
+ </span>
+ </div>
+ </section>
+ <!--  ACTIONS  -->
+ <div class="actions">
+ <a class="btn" href="index.html">Cancel</a>
+ <button class="btn" type="submit" value="Draft"
+ name="action" id="saveDraft">
+ Save as draft
+ </button>
+ <button class="btn btn--primary" type="submit"
+ value="Pending Approval" name="action"
+ id="saveSubmit">
+ Save and submit for approval
+ </button>
+ </div>
+ </form>
+</main>
+ </div>
+</div>
+<script type="module" src="js/employee-form.js"></script>
+<script type="module" src="js/nav.js"></script>
+</body>
+</html>

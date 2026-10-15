@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reports &middot; SISCO HRMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?
+family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar"></aside>
+<div class="main">
+<header class="topbar">
+<div class="topbar__crumb">
+<span class="topbar__crumb-root">System</span>
+<span class="topbar__crumb-sep">/</span>
+<span class="topbar__crumb-here">Reports</span>
+</div>
+<label class="acting">
+<span class="acting__label">Acting as</span>
+<select class="select select--ghost" id="userSwitcher">
+</select>
+</label>
+</header>
+<main class="page">
+<div class="page__head">
+<div>
+<h1 class="page__title">Reports</h1>
+<p class="page__sub">
+Every report exports to CSV, which opens in Excel
+</p>
+</div>
+</div>
+<div class="alert" id="alert" hidden></div>
+<!-- 1. HEADCOUNT -->
+<section class="panel section">
+<div class="section__head">
+<h2 class="section__title">Headcount by department</h2>
+<button class="btn btn--sm" type="button"
+data-export="headcount">
+Export CSV
+</button>
+</div>
+<div class="table-wrap">
+<table class="table">
+<thead>
+<tr>
+<th>Department</th>
+<th class="num">Total</th>
+<th class="num">Active</th>
+</tr>
+</thead>
+<tbody id="headcountRows"></tbody>
+</table>
+</div>
+</section>
+<!-- 2. PAYROLL BY MONTH -->
+<section class="panel section">
+<div class="section__head">
+<h2 class="section__title">Payroll by month</h2>
+<button class="btn btn--sm" type="button"
+data-export="payroll">
+Export CSV
+</button>
+</div>
+<div class="table-wrap">
+<table class="table">
+<thead>
+<tr>
+<th>Month</th>
+<th class="num">Runs</th>
+<th class="num">Gross</th>
+<th class="num">Deductions</th>
+<th class="num">Net</th>
+<th class="num">Paid</th>
+</tr>
+</thead>
+<tbody id="payrollRows"></tbody>
+</table>
+</div>
+</section>
+<!-- 3. ATTENDANCE -->
+<section class="panel section">
+<div class="section__head">
+<h2 class="section__title">Attendance summary</h2>
+<div class="row-actions">
+<input class="input input--date" id="monthPicker"
+type="month">
+<button class="btn btn--sm" type="button"
+data-export="attendance">
+Export CSV
+</button>
+</div>
+</div>
+<div class="table-wrap">
+<table class="table">
+<thead>
+<tr>
+<th>Code</th>
+<th>Employee</th>
+<th class="num">Days</th>
+<th class="num">Present</th>
+<th class="num">Absent</th>
+<th class="num">Late</th>
+<th class="num">Half</th>
+<th class="num">Leave</th>
+<th class="num">Hours</th>
+</tr>
+</thead>
+<tbody id="attendanceRows"></tbody>
+</table>
+</div>
+</section>
+<!-- 4. LEAVE BALANCES -->
+<section class="panel section">
+<div class="section__head">
+<h2 class="section__title">Leave balances</h2>
+<button class="btn btn--sm" type="button"
+data-export="balances">
+Export CSV
+</button>
+</div>
+<div class="table-wrap">
+<table class="table">
+<thead id="balancesHead"></thead>
+<tbody id="balancesRows"></tbody>
+</table>
+</div>
+</section>
+</main>
+</div>
+</div>
+<script type="module" src="js/nav.js"></script>
+<script type="module" src="js/reports.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home &middot; SISCO HRMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?
+family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar"></aside>
+<div class="main">
+<header class="topbar">
+<div class="topbar__crumb">
+<span class="topbar__crumb-root">Me</span>
+<span class="topbar__crumb-sep">/</span>
+<span class="topbar__crumb-here">Home</span>
+</div>
+<label class="acting">
+<span class="acting__label">Acting as</span>
+<select class="select select--ghost" id="userSwitcher">
+</select>
+</label>
+</header>
+<main class="page">
+<div class="page__head">
+<div>
+<h1 class="page__title">Home</h1>
+<p class="page__sub" id="rowCount">&nbsp;</p>
+</div>
+</div>
+<div class="alert" id="alert" hidden></div>
+<section class="panel profile">
+<div class="profile__head">
+<span class="avatar avatar--lg" id="avatar"></span>
+<div class="profile__who">
+<div class="profile__name" id="name">&nbsp;</div>
+<div class="profile__meta" id="meta">&nbsp;</div>
+</div>
+<span class="badge" id="statusBadge">&nbsp;</span>
+</div>
+</section>
+<div class="group-title">My leave this year</div>
+<div class="stats" id="balances"></div>
+<div class="split">
+<section class="panel section">
+<div class="section__head">
+<h2 class="section__title">Recent leave requests</h2>
+<a class="section__link" href="my-leave.html">
+Open my leave
+</a>
+</div>
+<div class="table-wrap">
+<table class="table">
+<thead>
+<tr>
+<th>Type</th>
+<th>From</th>
+<th class="num">Days</th>
+<th class="w-status">Status</th>
+</tr>
+</thead>
+<tbody id="leaveRows"></tbody>
+</table>
+</div>
+</section>
+<section class="panel section">
+<div class="section__head">
+<h2 class="section__title">Attendance this month</h2>
+<a class="section__link" href="my-attendance.html">
+Open my attendance
+</a>
+</div>
+<div class="balance-bar" id="attSummary"></div>
+</section>
+</div>
+</main>
+</div>
+</div>
+<script type="module" src="js/nav.js"></script>
+<script type="module" src="js/home.js"></script>
+</body>
+</html>

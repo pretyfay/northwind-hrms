@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leave balances · SISCO HRMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?
+family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+<div class="sidebar__brand">
+<span class="sidebar__mark">S</span>
+<span class="sidebar__name">SISCO HR</span>
+</div>
+<nav class="nav">
+<div class="nav__group">
+<div class="nav__label">Main</div>
+<a class="nav__item" href="dashboard.html">Dashboard</a>
+<a class="nav__item" href="index.html">Employees</a>
+<a class="nav__item" href="attendance.html">Attendance</a>
+</div>
+<div class="nav__group">
+<div class="nav__label">Leave</div>
+<a class="nav__item" href="leave-requests.html">Requests</a>
+<a class="nav__item" href="leave-approval.html">Approval</a>
+<a class="nav__item is-active" href="leave-balances.html">
+Balances
+</a>
+</div>
+<div class="nav__group">
+<div class="nav__label">Masters</div>
+<a class="nav__item" href="#">Departments</a>
+<a class="nav__item" href="#">Designations</a>
+<a class="nav__item" href="#">Leave types</a>
+</div>
+<div class="nav__group">
+<div class="nav__label">System</div>
+</div>
+<div class="nav__group">
+<div class="nav__label">Payroll</div>
+<a class="nav__item" href="payroll.html">Processing</a>
+
+<a class="nav__item" href="#">Audit log</a>
+</div>
+</nav>
+<div class="sidebar__foot">Trainee build · 2026</div>
+</aside>
+<div class="main">
+<header class="topbar">
+<div class="topbar__crumb">
+<span class="topbar__crumb-root">Leave</span>
+<span class="topbar__crumb-sep">/</span>
+<span class="topbar__crumb-here">Balances</span>
+</div>
+<label class="acting">
+<span class="acting__label">Acting as</span>
+<select class="select select--ghost" id="userSwitcher">
+</select>
+</label>
+</header>
+<main class="page">
+<div class="page__head">
+<div>
+<h1 class="page__title">Leave balances</h1>
+<p class="page__sub" id="rowCount">&nbsp;</p>
+</div>
+</div>
+<section class="panel">
+<div class="filters">
+<select class="select" id="employeeFilter">
+<option value="">All employees</option>
+</select>
+<select class="select" id="yearFilter"></select>
+</div>
+<div class="table-wrap">
+<table class="table">
+<thead>
+<tr>
+<th>Employee</th>
+<th>Leave type</th>
+<th class="num">Entitlement</th>
+<th class="num">Taken</th>
+<th class="num">Remaining</th>
+<th style="width:180px">Used</th>
+</tr>
+</thead>
+<tbody id="balanceRows"></tbody>
+</table>
+</div>
+</section>
+</main>
+</div>
+</div>
+<script type="module" src="js/leave-balances.js"></script>
+<script type="module" src="js/nav.js"></script>
+</body>
+</html>

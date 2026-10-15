@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audit log &middot; SISCO HRMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?
+family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar"></aside>
+<div class="main">
+<header class="topbar">
+<div class="topbar__crumb">
+<span class="topbar__crumb-root">System</span>
+<span class="topbar__crumb-sep">/</span>
+<span class="topbar__crumb-here">Audit log</span>
+</div>
+<label class="acting">
+<span class="acting__label">Acting as</span>
+<select class="select select--ghost" id="userSwitcher">
+</select>
+</label>
+</header>
+<main class="page">
+<div class="page__head">
+<div>
+<h1 class="page__title">Audit log</h1>
+<p class="page__sub" id="rowCount">&nbsp;</p>
+</div>
+</div>
+<div class="alert" id="alert" hidden></div>
+<div class="tabs">
+<button class="tab is-active" type="button" data-mode="data">
+Data changes
+</button>
+<button class="tab" type="button" data-mode="flow">
+Status moves
+</button>
+</div>
+<section class="panel">
+<div class="filters">
+<select class="select" id="tableFilter">
+<option value="">All tables</option>
+</select>
+<select class="select" id="actionFilter">
+<option value="">All actions</option>
+</select>
+<input class="input input--date" id="fromFilter"
+type="date">
+<input class="input input--date" id="toFilter"
+type="date">
+<button class="btn" type="button" id="clearFilters">
+Clear
+</button>
+</div>
+<div class="table-wrap">
+<table class="table">
+<thead id="head"></thead>
+<tbody id="rows"></tbody>
+</table>
+</div>
+</section>
+</main>
+</div>
+</div>
+<script type="module" src="js/nav.js"></script>
+<script type="module" src="js/audit-log.js"></script>
+</body>
+</html>

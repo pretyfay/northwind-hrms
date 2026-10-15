@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Employee profile &middot; SISCO HRMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?
+family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar"></aside>
+<div class="main">
+<header class="topbar">
+<div class="topbar__crumb">
+<span class="topbar__crumb-root">Employees</span>
+<span class="topbar__crumb-sep">/</span>
+<span class="topbar__crumb-here">Profile</span>
+</div>
+<label class="acting">
+<span class="acting__label">Acting as</span>
+<select class="select select--ghost" id="userSwitcher">
+</select>
+</label>
+</header>
+<main class="page">
+<div class="page__head">
+<div>
+<h1 class="page__title">Employee profile</h1>
+<p class="page__sub" id="rowCount">&nbsp;</p>
+</div>
+<select class="select" id="picker" style="min-width:260px">
+<option value="">Select an employee&hellip;</option>
+</select>
+</div>
+<div class="alert" id="alert" hidden></div>
+<div id="body" hidden>
+<!-- IDENTITY AND ACTIONS -->
+<section class="panel profile">
+<div class="profile__head">
+<span class="avatar avatar--lg" id="avatar"></span>
+<div class="profile__who">
+<div class="profile__name" id="name">&nbsp;</div>
+<div class="profile__meta" id="meta">&nbsp;</div>
+</div>
+<span class="badge" id="statusBadge">&nbsp;</span>
+</div>
+<div class="profile__actions" id="actions"></div>
+<div class="separation" id="separation" hidden>
+<div class="entry">
+<div class="entry__field">
+<label class="lbl" for="sepDate">
+Separation date
+</label>
+<input class="input input--date" id="sepDate"
+type="date">
+</div>
+<div class="entry__field entry__field--wide">
+<label class="lbl" for="sepReason">Reason</label>
+<input class="input select--block" id="sepReason"
+type="text"
+placeholder="Resignation, end of contract…">
+</div>
+<div class="entry__field entry__field--action">
+<button class="btn btn--danger" type="button"
+id="sepConfirm">
+Confirm separation
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- DETAILS -->
+<section class="panel section">
+<div class="section__head">
+<h2 class="section__title">Details</h2>
+</div>
+<div class="facts" id="facts"></div>
+</section>
+<div class="split">
+<!-- SALARY -->
+<section class="panel section">
+<div class="section__head">
+<h2 class="section__title">Salary</h2>
+<p class="section__note">
+Current row first, then the history
+</p>
+</div>
+<div id="salary"></div>
+</section>
+<!-- ATTENDANCE -->
+<section class="panel section">
+<div class="section__head">
+<h2 class="section__title">Attendance</h2>
+<p class="section__note">All time</p>
+</div>
+<div class="balance-bar" id="attSummary"></div>
+<div class="table-wrap">
+<table class="table">
+<thead>
+<tr>
+<th>Date</th>
+<th>In</th>
+<th>Out</th>
+<th class="num">Hours</th>
+<th class="w-status">Status</th>
+</tr>
+</thead>
+<tbody id="attRows"></tbody>
+</table>
+</div>
+</section>
+</div>
+<div class="split">
+<!-- LEAVE -->
+<section class="panel section">
+<div class="section__head">
+<h2 class="section__title">Leave</h2>
+</div>
+<div class="table-wrap">
+<table class="table">
+<thead>
+<tr>
+<th>Type</th>
+<th>From</th>
+<th>To</th>
+<th class="num">Days</th>
+<th class="w-status">Status</th>
+</tr>
+</thead>
+<tbody id="leaveRows"></tbody>
+</table>
+</div>
+</section>
+<!-- PAYROLL -->
+<section class="panel section">
+<div class="section__head">
+<h2 class="section__title">Payroll history</h2>
+</div>
+<div class="table-wrap">
+<table class="table">
+<thead>
+<tr>
+<th>Month</th>
+<th class="num">Gross</th>
+<th class="num">Net</th>
+<th class="w-status">Status</th>
+</tr>
+</thead>
+<tbody id="payRows"></tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- TIMELINE -->
+<section class="panel section">
+<div class="section__head">
+<h2 class="section__title">Timeline</h2>
+<p class="section__note">
+Every status move and every field change
+</p>
+</div>
+<div class="timeline" id="timeline"></div>
+</section>
+</div>
+<div class="state" id="placeholder">
+<div class="state__title">No employee selected</div>
+<div class="state__text">
+Pick someone from the list above.
+</div>
+</div>
+</main>
+</div>
+</div>
+<script type="module" src="js/nav.js"></script>
+<script type="module" src="js/employee-profile.js"></script>
+</body>
+</html>

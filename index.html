@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Employees · SISCO HRMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+ <!-- SIDEBAR -->
+ <aside class="sidebar">
+ <div class="sidebar__brand">
+ <span class="sidebar__mark">S</span>
+ <span class="sidebar__name">SISCO HR</span>
+ </div>
+ <nav class="nav">
+ <div class="nav__group">
+ <div class="nav__label">Main</div>
+ <a class="nav__item" href="dashboard.html">Dashboard</a>
+
+ <a class="nav__item is-active" href="index.html">
+ Employees
+ </a>
+<a class="nav__item" href="attendance.html">Attendance</a>
+ </div>
+<div class="nav__group">
+<div class="nav__label">Payroll</div>
+<a class="nav__item" href="payroll.html">Processing</a>
+
+ </div>
+ <div class="nav__group">
+ <div class="nav__label">Masters</div>
+ <a class="nav__item" href="#">Departments</a>
+ <a class="nav__item" href="#">Designations</a>
+</div>
+<div class="nav__group">
+<div class="nav__label">Leave</div>
+<a class="nav__item" href="leave-requests.html">Requests</a>
+<a class="nav__item" href="leave-approval.html">Approval</a>
+<a class="nav__item" href="leave-balances.html">Balances</a>
+ </div>
+ <div class="nav__group">
+ <div class="nav__label">System</div>
+ <a class="nav__item" href="#">Reports</a>
+ <a class="nav__item" href="#">Audit log</a>
+ </div>
+ </nav>
+ <div class="sidebar__foot">
+ Trainee build · 2026
+ </div>
+ </aside>
+ <!--  MAIN -->
+ <div class="main">
+ <header class="topbar">
+ <div class="topbar__crumb">
+ <span class="topbar__crumb-root">HR</span>
+ <span class="topbar__crumb-sep">/</span>
+ <span class="topbar__crumb-here">Employees</span>
+ </div>
+ <label class="acting">
+ <span class="acting__label">Acting as</span>
+ <select class="select select--ghost" id="userSwitcher">
+ </select>
+ </label>
+ </header>
+ <main class="page">
+ <div class="page__head">
+ <div>
+ <h1 class="page__title">Employees</h1>
+ <p class="page__sub" id="rowCount">&nbsp;</p>
+ </div>
+ <button class="btn btn--primary" id="addBtn">
+ <span class="btn__plus">+</span>
+ Add employee
+ </button>
+ </div>
+ <section class="panel">
+ <div class="filters">
+ <div class="field field--grow">
+ <input class="input"
+ type="text"
+ id="searchInput"
+ placeholder="Search name or code">
+ </div>
+ <select class="select" id="departmentFilter">
+ <option value="">All departments</option>
+ </select>
+ <select class="select" id="designationFilter">
+ <option value="">All designations</option>
+ </select>
+ <select class="select" id="statusFilter">
+ <option value="">All statuses</option>
+ <option value="Draft">Draft</option>
+ <option value="Pending Approval">Pending Approval</option>
+ <option value="Approved">Approved</option>
+ <option value="Active">Active</option>
+ <option value="Inactive">Inactive</option>
+ <option value="Rejected">Rejected</option>
+ </select>
+ </div>
+ <div class="table-wrap">
+ <table class="table">
+ <thead>
+ <tr>
+ <th class="w-code">Code</th>
+ <th>Name</th>
+ <th>Department</th>
+ <th>Designation</th>
+ <th class="num">Gross salary</th>
+ <th class="w-status">Status</th>
+ </tr>
+ </thead>
+ <tbody id="employeeRows"></tbody>
+ </table>
+ </div>
+ </section>
+ </main>
+ </div>
+</div>
+<script type="module" src="js/employees.js"></script>
+<script type="module" src="js/nav.js"></script>
+</body>
+</html>

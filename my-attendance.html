@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My attendance &middot; SISCO HRMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?
+family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar"></aside>
+<div class="main">
+<header class="topbar">
+<div class="topbar__crumb">
+<span class="topbar__crumb-root">Me</span>
+<span class="topbar__crumb-sep">/</span>
+<span class="topbar__crumb-here">My attendance</span>
+</div>
+<label class="acting">
+<span class="acting__label">Acting as</span>
+<select class="select select--ghost" id="userSwitcher">
+</select>
+</label>
+</header>
+<main class="page">
+<div class="page__head">
+<div>
+<h1 class="page__title">My attendance</h1>
+<p class="page__sub" id="rowCount">&nbsp;</p>
+</div>
+</div>
+<div class="alert" id="alert" hidden></div>
+<section class="panel">
+<div class="filters">
+<input class="input input--date" id="monthPicker"
+type="month">
+</div>
+<div class="balance-bar" id="summary"></div>
+<div class="table-wrap">
+<table class="table">
+<thead>
+<tr>
+<th>Date</th>
+<th>In</th>
+<th>Out</th>
+<th class="num">Hours</th>
+<th class="w-status">Status</th>
+<th>Remarks</th>
+</tr>
+</thead>
+<tbody id="rows"></tbody>
+</table>
+</div>
+</section>
+</main>
+</div>
+</div>
+<script type="module" src="js/nav.js"></script>
+<script type="module" src="js/my-attendance.js"></script>
+</body>
+</html>

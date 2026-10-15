@@ -1,0 +1,2278 @@
+
+
+:root {
+ /* ---- Blue — identity (recalibrated for contrast and depth) ---- */
+ --blue-950: #0a1628;
+ --blue-900: #0d1f3c;
+ --blue-800: #0f3058;
+ --blue-700: #14498a;
+ --blue-600: #1a5fb4;
+ --blue-500: #2e7dd1;
+ --blue-400: #5199e0;
+ --blue-200: #a3c9f0;
+ --blue-100: #cde1f7;
+ --blue-50: #eaf2fb;
+ /* ---- Orange — accent (warm, used once or twice per screen) ---- */
+ --orange-800: #5c3409;
+ --orange-600: #7c4b0f;
+ --orange-500: #9c6114;
+ --orange-400: #c07c1a;
+ --orange-100: #f5c66e;
+ --orange-50: #fdf3e0;
+ /* ---- Semantic ---- */
+ --green-800: #0a3b2e;
+ --green-500: #1a9a6e;
+ --green-50: #e4f6ee;
+ --red-800: #4a1616;
+ --red-500: #d14545;
+ --red-50: #fce8e8;
+ /* ---- Ink and surface ---- */
+ --ink-900: #111318;
+ --ink-700: #333841;
+ --ink-500: #5f6672;
+ --ink-400: #8b919d;
+ --ink-300: #b0b5bf;
+ --line: #dfe1e6;
+ --line-2: #eceef2;
+ --sheet: #ffffff;
+ --canvas: #f4f5f7;
+ --well: #f9fafb;
+ /* ---- Elevation — three tiers, each a stack of two shadows ---- */
+ --lift-1: 0 1px 2px rgba(0,0,0,.05),
+ 0 1px 4px rgba(0,0,0,.04);
+ --lift-2: 0 2px 4px rgba(0,0,0,.04),
+ 0 6px 16px rgba(0,0,0,.06);
+ --lift-3: 0 4px 8px rgba(0,0,0,.04),
+ 0 12px 32px rgba(0,0,0,.08);
+ /* ---- Focus ring ---- */
+ --ring: 0 0 0 2px var(--sheet), 0 0 0 4px var(--blue-400);
+ /* ---- Space scale (4-px base) ---- */
+ --s1: 4px;
+ --s2: 8px;
+ --s3: 12px;
+ --s4: 16px;
+ --s5: 24px;
+ --s6: 32px;
+ --s7: 48px;
+ --s8: 64px;
+ /* ---- Radii ---- */
+ --r-sm: 5px;
+ --r-md: 8px;
+ --r-lg: 12px;
+ --r-xl: 16px;
+ /* ---- Layout ---- */
+ --rail: 232px;
+ --bar: 56px;
+ /* ---- Type ---- */
+ --sans: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+ --mono: 'JetBrains Mono', 'Consolas', monospace;
+ /* ---- Motion — two speeds, one curve ---- */
+ --fast: 110ms ease;
+ --base: 180ms ease;
+}
+/* ------------------------------------------------------------------
+ 2 · RESET
+ ------------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+}
+html {
+ -webkit-text-size-adjust: 100%;
+}
+body {
+ font-family: var(--sans);
+ font-size: 13.5px;
+ line-height: 1.5;
+ color: var(--ink-900);
+ background: var(--canvas);
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
+ font-feature-settings: 'cv11', 'ss01';
+ font-variant-numeric: tabular-nums;
+}
+a {
+ color: inherit;
+ text-decoration: none;
+}
+button,
+input,
+select {
+ font: inherit;
+ color: inherit;
+}
+:focus-visible {
+ outline: none;
+ box-shadow: var(--ring);
+}
+/* ------------------------------------------------------------------
+ 3 · SHELL
+ ------------------------------------------------------------------ */
+.app {
+ display: flex;
+ min-height: 100vh;
+}
+.main {
+ flex: 1;
+ min-width: 0;
+ display: flex;
+ flex-direction: column;
+}
+/* ------------------------------------------------------------------
+ 4 · SIDEBAR
+ Dark, dense, the structural anchor of every screen.
+ ------------------------------------------------------------------ */
+.sidebar {
+ width: var(--rail);
+ flex-shrink: 0;
+ display: flex;
+ flex-direction: column;
+ background: var(--blue-950);
+ color: var(--blue-200);
+ border-right: 1px solid rgba(255,255,255,.04);
+ position: relative;
+ z-index: 10;
+}
+/* Hairline highlight along the right edge — depth cue */
+.sidebar::after {
+ content: '';
+ position: absolute;
+ inset: 0 0 0 auto;
+ width: 1px;
+ background: linear-gradient(180deg,
+ rgba(255,255,255,.06),
+ rgba(255,255,255,.02) 70%,
+ transparent);
+ pointer-events: none;
+}
+.sidebar__brand {
+ height: var(--bar);
+ display: flex;
+ align-items: center;
+ gap: var(--s3);
+ padding: 0 var(--s4);
+ border-bottom: 1px solid rgba(255,255,255,.06);
+}
+/* The single orange moment in the sidebar. */
+.sidebar__mark {
+ width: 26px;
+ height: 26px;
+ flex-shrink: 0;
+ border-radius: var(--r-sm);
+ background: var(--orange-400);
+ color: #fff;
+ display: grid;
+ place-items: center;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: -0.02em;
+}
+.sidebar__brand:hover .sidebar__mark {
+ background: var(--orange-500);
+}
+.sidebar__name {
+ color: rgba(255,255,255,.92);
+ font-size: 14px;
+ font-weight: 600;
+ letter-spacing: -0.02em;
+}
+.nav {
+ flex: 1;
+ padding: var(--s3) 0;
+ overflow-y: auto;
+ scrollbar-width: thin;
+ scrollbar-color: rgba(255,255,255,.08) transparent;
+}
+.nav__group + .nav__group {
+ margin-top: var(--s4);
+}
+.nav__label {
+ padding: var(--s1) var(--s4) var(--s2);
+ font-size: 10.5px;
+ font-weight: 600;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: var(--blue-400);
+ opacity: .6;
+}
+.nav__item {
+ position: relative;
+ display: block;
+ margin: 1px var(--s2);
+ padding: 7px var(--s3);
+ border-radius: var(--r-sm);
+ font-size: 13px;
+ font-weight: 450;
+ color: var(--blue-200);
+ transition: background var(--fast), color var(--fast);
+}
+.nav__item:hover {
+ background: rgba(255,255,255,.06);
+ color: #fff;
+}
+.nav__item.is-active {
+ background: rgba(255,255,255,.09);
+ color: #fff;
+ font-weight: 550;
+}
+/* Orange accent bar — the sharpest active state in the interface. */
+.nav__item.is-active::before {
+ content: '';
+ position: absolute;
+ left: -8px;
+ top: 50%;
+ translate: 0 -50%;
+ width: 3px;
+ height: 16px;
+ border-radius: 0 2px 2px 0;
+ background: var(--orange-400);
+}
+.sidebar__foot {
+ padding: var(--s3) var(--s4);
+ border-top: 1px solid rgba(255,255,255,.06);
+ font-size: 11px;
+ color: var(--blue-400);
+ opacity: .45;
+}
+/* ------------------------------------------------------------------
+ 5 · TOPBAR
+ ------------------------------------------------------------------ */
+.topbar {
+ height: var(--bar);
+ flex-shrink: 0;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ gap: var(--s4);
+ padding: 0 var(--s6);
+ background: var(--sheet);
+ border-bottom: 1px solid var(--line);
+ position: sticky;
+ top: 0;
+ z-index: 5;
+}
+.topbar__crumb {
+ display: flex;
+ align-items: center;
+ gap: var(--s2);
+ font-size: 13px;
+}
+.topbar__crumb-root {
+ color: var(--ink-400);
+}
+.topbar__crumb-sep {
+ color: var(--ink-300);
+}
+.topbar__crumb-here {
+ color: var(--ink-900);
+ font-weight: 600;
+}
+.acting {
+ display: flex;
+ align-items: center;
+ gap: var(--s2);
+}
+.acting__label {
+ font-size: 12px;
+ color: var(--ink-400);
+ white-space: nowrap;
+}
+/* ------------------------------------------------------------------
+ 6 · PAGE
+ ------------------------------------------------------------------ */
+.page {
+ flex: 1;
+ padding: var(--s6);
+ max-width: 1320px;
+ width: 100%;
+ animation: pageIn 200ms ease both;
+}
+@keyframes pageIn {
+ from { opacity: 0; }
+ to { opacity: 1; }
+}
+@keyframes fadeUp {
+ from { opacity: 0; transform: translateY(6px); }
+ to { opacity: 1; transform: translateY(0); }
+}
+.page__head {
+ display: flex;
+ align-items: flex-start;
+ justify-content: space-between;
+ gap: var(--s4);
+ margin-bottom: var(--s6);
+}
+.page__title {
+ font-size: 26px;
+ font-weight: 700;
+ letter-spacing: -0.035em;
+ line-height: 1.15;
+ color: var(--ink-900);
+}
+.page__sub {
+ margin-top: var(--s1);
+ font-size: 13px;
+ color: var(--ink-500);
+}
+/* ------------------------------------------------------------------
+ 7 · PANEL
+ The primary content container. Elevated, not just outlined.
+ ------------------------------------------------------------------ */
+.panel {
+ background: var(--sheet);
+ border: 1px solid var(--line);
+ border-radius: var(--r-lg);
+ box-shadow: var(--lift-1);
+ overflow: hidden;
+ /* On the element, not on :hover — otherwise the shadow snaps
+ back instantly when the pointer leaves. */
+ transition: box-shadow var(--base);
+}
+.panel:hover {
+ box-shadow: var(--lift-2);
+}
+/* ------------------------------------------------------------------
+ 8 · FILTERS
+ ------------------------------------------------------------------ */
+.filters {
+ display: flex;
+ flex-wrap: wrap;
+ gap: var(--s2);
+ padding: var(--s3) var(--s4);
+ border-bottom: 1px solid var(--line);
+ background: var(--well);
+}
+.field {
+ position: relative;
+}
+.field--grow {
+ flex: 1;
+ min-width: 200px;
+}
+/* ------------------------------------------------------------------
+ 9 · CONTROLS
+ ------------------------------------------------------------------ */
+.input,
+.select {
+ height: 36px;
+ width: 100%;
+ padding: 0 var(--s3);
+ font-size: 13px;
+ color: var(--ink-900);
+ background: var(--sheet);
+ border: 1px solid var(--line);
+ border-radius: var(--r-md);
+ transition: border-color var(--fast), box-shadow var(--fast);
+}
+.input::placeholder {
+ color: var(--ink-400);
+}
+.input:hover,
+.select:hover {
+ border-color: var(--ink-300);
+}
+.input:focus,
+.select:focus {
+ outline: none;
+ border-color: var(--blue-500);
+ box-shadow: var(--ring);
+}
+.select {
+ width: auto;
+ min-width: 146px;
+ padding-right: 32px;
+ cursor: pointer;
+ appearance: none;
+ background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%235f6672' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+ background-repeat: no-repeat;
+ background-position: right 10px center;
+}
+.select--ghost {
+ height: 32px;
+ border-color: transparent;
+ background-color: var(--line-2);
+ font-size: 12.5px;
+}
+.select--ghost:hover {
+ border-color: var(--line);
+}
+/* ------------------------------------------------------------------
+ 10 · BUTTONS
+ ------------------------------------------------------------------ */
+.btn {
+ height: 36px;
+ display: inline-flex;
+ align-items: center;
+ gap: var(--s2);
+ padding: 0 var(--s4);
+ font-size: 13px;
+ font-weight: 550;
+ white-space: nowrap;
+ border: 1px solid var(--line);
+ border-radius: var(--r-md);
+ background: var(--sheet);
+ color: var(--ink-900);
+ cursor: pointer;
+ transition: background var(--fast), border-color var(--fast), box-shadow var(--fast);
+}
+.btn:hover {
+ background: var(--well);
+ border-color: var(--ink-300);
+ box-shadow: var(--lift-1);
+}
+.btn:active {
+ box-shadow: none;
+ background: var(--line-2);
+}
+.btn--primary {
+ background: var(--blue-600);
+ border-color: var(--blue-700);
+ color: #fff;
+ box-shadow: 0 1px 2px rgba(0,0,0,.12);
+}
+.btn--primary:hover {
+ background: var(--blue-700);
+ border-color: var(--blue-800);
+ box-shadow: var(--lift-1);
+}
+.btn--primary:active {
+ background: var(--blue-800);
+ box-shadow: none;
+}
+.btn__plus {
+ font-size: 16px;
+ line-height: 1;
+ font-weight: 400;
+ opacity: .7;
+}
+.btn--primary:hover .btn__plus {
+ opacity: 1;
+}
+/* ------------------------------------------------------------------
+ 11 · TABLE
+ The heart of the application. Dense, readable, professional.
+ ------------------------------------------------------------------ */
+.table-wrap {
+ overflow-x: auto;
+}
+.table {
+ width: 100%;
+ border-collapse: separate;
+ border-spacing: 0;
+ font-variant-numeric: tabular-nums;
+}
+.table th {
+ position: sticky;
+ top: 0;
+ z-index: 2;
+ padding: var(--s2) var(--s4);
+ text-align: left;
+ font-size: 11px;
+ font-weight: 650;
+ letter-spacing: 0.06em;
+ text-transform: uppercase;
+ color: var(--ink-500);
+ background: var(--well);
+ border-bottom: 2px solid var(--line);
+ white-space: nowrap;
+}
+.table td {
+ padding: var(--s3) var(--s4);
+ border-bottom: 1px solid var(--line-2);
+ vertical-align: middle;
+ font-variant-numeric: tabular-nums;
+}
+.table tbody tr {
+ transition: background var(--fast);
+}
+.table tbody tr:hover {
+ background: var(--blue-50);
+}
+.table tbody tr:hover td {
+ border-bottom-color: var(--blue-100);
+}
+.table tbody tr:last-child td {
+ border-bottom: none;
+}
+.w-code { width: 120px; }
+.w-status { width: 132px; }
+.num {
+ text-align: right;
+ font-variant-numeric: tabular-nums;
+}
+.mono {
+ font-family: var(--mono);
+ font-size: 12px;
+ font-weight: 500;
+ color: var(--blue-700);
+ letter-spacing: -0.01em;
+}
+.currency {
+ font-size: 11px;
+ font-weight: 600;
+ color: var(--ink-400);
+ margin-right: 2px;
+}
+/* ------------------------------------------------------------------
+ 12 · PERSON CELL
+ ------------------------------------------------------------------ */
+.person {
+ display: flex;
+ align-items: center;
+ gap: var(--s3);
+}
+.avatar {
+ width: 28px;
+ height: 28px;
+ flex-shrink: 0;
+ border-radius: 50%;
+ background: var(--blue-50);
+ color: var(--blue-800);
+ display: grid;
+ place-items: center;
+ font-size: 10px;
+ font-weight: 700;
+ letter-spacing: 0.02em;
+ border: 1px solid var(--blue-100);
+}
+.table tbody tr:hover .avatar {
+ background: var(--blue-100);
+ border-color: var(--blue-200);
+}
+.person__name {
+ font-weight: 550;
+ color: var(--ink-900);
+}
+/* ------------------------------------------------------------------
+ 13 · BADGES
+ Status legible through colour, weight, shape and a status dot.
+ Text is always the darkest shade of its colour family.
+ ------------------------------------------------------------------ */
+.badge {
+ display: inline-flex;
+ align-items: center;
+ gap: var(--s1);
+ padding: 2px var(--s2) 2px 6px;
+ font-size: 11.5px;
+ font-weight: 600;
+ letter-spacing: 0.01em;
+ border-radius: var(--r-sm);
+ white-space: nowrap;
+ border: 1px solid transparent;
+}
+.badge::before {
+ content: '';
+ width: 6px;
+ height: 6px;
+ border-radius: 50%;
+ flex-shrink: 0;
+ background: currentColor;
+ opacity: .55;
+}
+/* Neutral — not started */
+.badge--draft {
+ background: var(--line-2);
+ color: var(--ink-700);
+ border-color: var(--line);
+}
+/* Amber — waiting on a person */
+.badge--pending {
+ background: var(--orange-50);
+ color: var(--orange-800);
+ border-color: var(--orange-100);
+}
+.badge--pending::before {
+ animation: none; /* kept still — no bouncy elements */
+}
+/* Blue — in-flight */
+.badge--calculated,
+.badge--processed,
+.badge--submitted {
+ background: var(--blue-50);
+ color: var(--blue-800);
+ border-color: var(--blue-100);
+}
+/* Green — settled */
+.badge--approved,
+.badge--active,
+.badge--paid {
+ background: var(--green-50);
+ color: var(--green-800);
+ border-color: #b8e6d5;
+}
+/* Red — stopped */
+.badge--rejected,
+.badge--cancelled,
+.badge--inactive {
+ background: var(--red-50);
+ color: var(--red-800);
+ border-color: #f5c5c5;
+}
+/* ------------------------------------------------------------------
+ 14 · LOADING SKELETON
+ ------------------------------------------------------------------ */
+.skeleton {
+ display: block;
+ height: 12px;
+ border-radius: var(--r-sm);
+ background: linear-gradient(
+ 90deg,
+ var(--line-2) 25%,
+ var(--line) 37%,
+ var(--line-2) 63%
+ );
+ background-size: 400% 100%;
+ animation: shimmer 1.4s ease-in-out infinite;
+}
+@keyframes shimmer {
+ 0% { background-position: 100% 50%; }
+ 100% { background-position: 0 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .skeleton,
+ .badge--pending::before {
+ animation: none;
+ }
+ .page {
+ animation: none;
+ }
+}
+/* ------------------------------------------------------------------
+ 15 · EMPTY AND ERROR STATES
+ Designed, not fallbacks. Centred, muted, with deliberate spacing.
+ ------------------------------------------------------------------ */
+.state {
+ padding: var(--s8) var(--s5);
+ text-align: center;
+}
+.state__title {
+ font-size: 15px;
+ font-weight: 650;
+ color: var(--ink-700);
+ margin-bottom: var(--s1);
+}
+.state__text {
+ font-size: 13px;
+ color: var(--ink-500);
+ max-width: 400px;
+ margin: 0 auto;
+ line-height: 1.55;
+}
+.state--error {
+ padding: var(--s4) var(--s5);
+ text-align: left;
+ border-left: 3px solid var(--red-500);
+ background: var(--red-50);
+ border-radius: 0;
+}
+.state--error .state__title {
+ color: var(--red-800);
+}
+.state--error .state__text {
+ color: var(--red-800);
+ opacity: .85;
+ margin: 0;
+ font-family: var(--mono);
+ font-size: 12px;
+ overflow-wrap: break-word;
+}
+/* ------------------------------------------------------------------
+ 16 · NARROW SCREENS
+ ------------------------------------------------------------------ */
+@media (max-width: 860px) {
+ .sidebar {
+ width: 56px;
+ }
+ .sidebar__name,
+ .nav__label,
+ .sidebar__foot {
+ display: none;
+ }
+ .sidebar::after {
+ display: none;
+ }
+ .nav__item {
+ text-align: center;
+ font-size: 10.5px;
+ padding: var(--s2) var(--s1);
+ margin: 1px var(--s1);
+ }
+ .page,
+ .topbar {
+ padding-left: var(--s4);
+ padding-right: var(--s4);
+ }
+}
+/* ------------------------------------------------------------------
+ 17 · FORM PAGE
+ ------------------------------------------------------------------ */
+.page--narrow {
+ max-width: 860px;
+}
+.section {
+ margin-bottom: var(--s4);
+}
+.section__head {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ gap: var(--s1) var(--s3);
+ padding: var(--s3) var(--s5);
+ border-bottom: 1px solid var(--line);
+ background: var(--well);
+}
+.section__title {
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 0.04em;
+ text-transform: uppercase;
+ color: var(--ink-700);
+}
+.section__note {
+ font-size: 12px;
+ color: var(--ink-500);
+ /* Full width so it drops onto its own line instead of being
+ squeezed against the title in a narrow column. */
+ flex: 1 0 100%;
+ order: 3;
+}
+/* ------------------------------------------------------------------
+ 18 · FORM GRID
+ ------------------------------------------------------------------ */
+.grid {
+ display: grid;
+ grid-template-columns: repeat(2, minmax(0, 1fr));
+ gap: var(--s4) var(--s5);
+ padding: var(--s5);
+}
+.field2--wide {
+ grid-column: 1 / -1;
+}
+.lbl {
+ display: block;
+ margin-bottom: var(--s1);
+ font-size: 12px;
+ font-weight: 600;
+ color: var(--ink-700);
+}
+.req {
+ color: var(--red-500);
+ font-weight: 600;
+}
+.hint {
+ margin-top: var(--s1);
+ font-size: 11.5px;
+ color: var(--ink-400);
+}
+.err {
+ margin-top: var(--s1);
+ font-size: 11.5px;
+ color: var(--red-800);
+ min-height: 0;
+}
+.err:empty {
+ display: none;
+}
+.select--block {
+ width: 100%;
+ min-width: 0;
+}
+.is-invalid {
+ border-color: var(--red-500) !important;
+}
+.is-invalid:focus {
+ box-shadow: 0 0 0 2px var(--sheet), 0 0 0 4px var(--red-500) !important;
+}
+/* ------------------------------------------------------------------
+ 19 · MONEY INPUT
+ ------------------------------------------------------------------ */
+.money {
+ position: relative;
+}
+.money__cur {
+ position: absolute;
+ left: var(--s3);
+ top: 50%;
+ transform: translateY(-50%);
+ font-size: 11.5px;
+ font-weight: 600;
+ color: var(--ink-400);
+ pointer-events: none;
+}
+.input--money {
+ padding-left: 42px;
+ text-align: right;
+ font-variant-numeric: tabular-nums;
+ font-family: var(--mono);
+}
+.input--money::-webkit-outer-spin-button,
+.input--money::-webkit-inner-spin-button {
+ -webkit-appearance: none;
+ margin: 0;
+}
+.input--money[type='number'] {
+ -moz-appearance: textfield;
+ appearance: textfield;
+}
+/* ------------------------------------------------------------------
+ 20 · TOTAL BAR
+ Orange accent marks the single most important number.
+ ------------------------------------------------------------------ */
+.total {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: var(--s4) var(--s5);
+ border-top: 2px solid var(--line);
+ border-left: 3px solid var(--orange-400);
+ background: var(--well);
+}
+.total__label {
+ font-size: 13px;
+ font-weight: 600;
+ color: var(--ink-700);
+}
+.total__value {
+ font-size: 24px;
+ font-weight: 700;
+ letter-spacing: -0.03em;
+ font-variant-numeric: tabular-nums;
+ font-family: var(--mono);
+}
+.total__cur {
+ font-size: 12px;
+ font-weight: 600;
+ color: var(--ink-400);
+ margin-right: var(--s1);
+}
+/* ------------------------------------------------------------------
+ 21 · ACTIONS
+ ------------------------------------------------------------------ */
+.actions {
+ display: flex;
+ justify-content: flex-end;
+ gap: var(--s2);
+ padding: var(--s5) 0 var(--s6);
+}
+.btn:disabled {
+ opacity: .45;
+ cursor: not-allowed;
+ pointer-events: none;
+}
+/* ------------------------------------------------------------------
+ 22 · ALERTS
+ ------------------------------------------------------------------ */
+.alert {
+ padding: var(--s3) var(--s4);
+ margin-bottom: var(--s4);
+ border-radius: var(--r-md);
+ font-size: 13px;
+ font-weight: 500;
+ border-left: 3px solid;
+}
+@keyframes slideDown {
+ from { opacity: 0; transform: translateY(-4px); }
+ to { opacity: 1; transform: translateY(0); }
+}
+.alert--error {
+ background: var(--red-50);
+ border-left-color: var(--red-500);
+ color: var(--red-800);
+ animation: slideDown 180ms ease both;
+}
+.alert--success {
+ background: var(--green-50);
+ border-left-color: var(--green-500);
+ color: var(--green-800);
+ animation: slideDown 180ms ease both;
+}
+/* ------------------------------------------------------------------
+ 23 · FORM ON NARROW SCREENS
+ ------------------------------------------------------------------ */
+@media (max-width: 720px) {
+ .grid {
+ grid-template-columns: minmax(0, 1fr);
+ padding: var(--s4);
+ }
+ .actions {
+ flex-wrap: wrap;
+ }
+}
+/* ------------------------------------------------------------------
+ 24 · DASHBOARD — HERO
+ The single most important number on the page.
+ ------------------------------------------------------------------ */
+.hero {
+ padding: var(--s5) var(--s6);
+ margin-bottom: var(--s6);
+ background: var(--sheet);
+ border: 1px solid var(--line);
+ border-left: 3px solid var(--orange-400);
+ border-radius: 0 var(--r-lg) var(--r-lg) 0;
+ box-shadow: var(--lift-2);
+}
+.hero::after {
+ /* removed — no decorative noise */
+ content: none;
+}
+.hero__label {
+ font-size: 11px;
+ font-weight: 650;
+ letter-spacing: 0.06em;
+ text-transform: uppercase;
+ color: var(--ink-500);
+}
+.hero__value {
+ margin-top: var(--s2);
+ font-size: 40px;
+ font-weight: 700;
+ letter-spacing: -0.04em;
+ line-height: 1;
+ font-variant-numeric: tabular-nums;
+ color: var(--ink-900);
+}
+.hero__cur {
+ font-size: 18px;
+ font-weight: 600;
+ color: var(--ink-400);
+ margin-right: var(--s1);
+}
+.hero__note {
+ margin-top: var(--s2);
+ font-size: 13px;
+ color: var(--ink-500);
+}
+/* ------------------------------------------------------------------
+ 25 · GROUP TITLES
+ ------------------------------------------------------------------ */
+.group-title {
+ margin: var(--s6) 0 var(--s3);
+ font-size: 11px;
+ font-weight: 700;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: var(--ink-500);
+}
+.group-title:first-of-type {
+ margin-top: 0;
+}
+/* ------------------------------------------------------------------
+ 26 · STAT CARDS
+ ------------------------------------------------------------------ */
+.stats {
+ display: grid;
+ grid-template-columns: repeat(4, minmax(0, 1fr));
+ gap: var(--s3);
+}
+.stats--2 {
+ grid-template-columns: repeat(2, minmax(0, 1fr));
+ max-width: 520px;
+}
+.stat {
+ padding: var(--s4) var(--s5);
+ background: var(--sheet);
+ border: 1px solid var(--line);
+ border-radius: var(--r-lg);
+ box-shadow: var(--lift-1);
+ transition: box-shadow var(--base), border-color var(--base);
+}
+.stat::before {
+ /* no decorative elements */
+ content: none;
+}
+.stat:hover {
+ box-shadow: var(--lift-2);
+ border-color: var(--ink-300);
+}
+.stat__label {
+ font-size: 12px;
+ font-weight: 500;
+ color: var(--ink-500);
+}
+.stat__value {
+ margin-top: var(--s1);
+ font-size: 32px;
+ font-weight: 700;
+ letter-spacing: -0.035em;
+ line-height: 1.1;
+ font-variant-numeric: tabular-nums;
+}
+.stat__value--ok { color: var(--green-800); }
+.stat__value--bad { color: var(--red-800); }
+.stat__value--wait { color: var(--orange-600); }
+.stat--link {
+ display: block;
+ transition: box-shadow var(--base), border-color var(--base);
+}
+.stat--link:hover {
+ border-color: var(--blue-400);
+ text-decoration: none;
+ box-shadow: var(--lift-2);
+}
+/* ------------------------------------------------------------------
+ 27 · SPLIT LAYOUT
+ ------------------------------------------------------------------ */
+.split {
+ display: grid;
+ grid-template-columns: repeat(2, minmax(0, 1fr));
+ gap: var(--s4);
+ margin-top: var(--s5);
+}
+.section__link {
+ font-size: 12px;
+ font-weight: 550;
+ color: var(--blue-600);
+}
+.section__link:hover {
+ color: var(--blue-800);
+ text-decoration: underline;
+}
+/* ------------------------------------------------------------------
+ 28 · DEPARTMENT BARS
+ ------------------------------------------------------------------ */
+.bars {
+ padding: var(--s4) var(--s5);
+}
+.bar {
+ display: flex;
+ align-items: center;
+ gap: var(--s3);
+ padding: 6px 0;
+}
+.bar__name {
+ width: 110px;
+ flex-shrink: 0;
+ font-size: 13px;
+ font-weight: 450;
+ color: var(--ink-700);
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: ellipsis;
+}
+.bar__track {
+ flex: 1;
+ height: 6px;
+ border-radius: 3px;
+ background: var(--line-2);
+ overflow: hidden;
+}
+.bar__fill {
+ display: block;
+ height: 100%;
+ border-radius: 3px;
+ background: var(--blue-500);
+}
+.bar__count {
+ width: 32px;
+ flex-shrink: 0;
+ text-align: right;
+ font-size: 13px;
+ font-weight: 600;
+ font-variant-numeric: tabular-nums;
+ color: var(--ink-700);
+}
+/* ------------------------------------------------------------------
+ 29 · SIMPLE LIST
+ ------------------------------------------------------------------ */
+.list__row {
+ display: flex;
+ align-items: center;
+ gap: var(--s3);
+ padding: var(--s3) var(--s5);
+ border-bottom: 1px solid var(--line-2);
+ transition: background var(--fast);
+}
+.list__row:hover {
+ background: var(--blue-50);
+}
+.list__row:last-child {
+ border-bottom: none;
+}
+.list__main {
+ flex: 1;
+ min-width: 0;
+ display: flex;
+ flex-direction: column;
+}
+.list__name {
+ font-size: 13px;
+ font-weight: 550;
+}
+.list__code {
+ font-size: 11.5px;
+ color: var(--ink-500);
+}
+/* ------------------------------------------------------------------
+ 30 · DASHBOARD ON NARROW SCREENS
+ ------------------------------------------------------------------ */
+@media (max-width: 900px) {
+ .stats {
+ grid-template-columns: repeat(2, minmax(0, 1fr));
+ }
+ .split {
+ grid-template-columns: minmax(0, 1fr);
+ }
+}
+/* ------------------------------------------------------------------
+ 31 · INLINE ENTRY ROW
+ ------------------------------------------------------------------ */
+.entry {
+ display: grid;
+ grid-template-columns: repeat(6, minmax(0, 1fr));
+ gap: var(--s3);
+ padding: var(--s4) var(--s5);
+ align-items: start;
+}
+.entry__field--wide {
+ grid-column: span 2;
+}
+.entry__field--action {
+ grid-column: 1 / -1;
+ display: flex;
+ justify-content: flex-end;
+ padding-top: var(--s2);
+}
+.input--date {
+ width: auto;
+ min-width: 150px;
+}
+.input:disabled,
+.select:disabled {
+ background: var(--line-2);
+ color: var(--ink-400);
+ cursor: not-allowed;
+ opacity: .7;
+}
+/* ------------------------------------------------------------------
+ 32 · ROW ACTION BUTTON
+ ------------------------------------------------------------------ */
+.w-action {
+ width: 44px;
+}
+.icon-btn {
+ width: 28px;
+ height: 28px;
+ display: inline-grid;
+ place-items: center;
+ font-size: 16px;
+ line-height: 1;
+ color: var(--ink-400);
+ background: none;
+ border: 1px solid transparent;
+ border-radius: var(--r-sm);
+ cursor: pointer;
+ transition: color var(--fast), background var(--fast), border-color var(--fast);
+}
+.icon-btn:hover {
+ color: var(--red-800);
+ background: var(--red-50);
+ border-color: #f5c5c5;
+}
+.icon-btn:active {
+ background: #f9d6d6;
+}
+/* ------------------------------------------------------------------
+ 33 · EXTRA BADGE COLOURS
+ ------------------------------------------------------------------ */
+.badge--late,
+.badge--half {
+ background: var(--orange-50);
+ color: var(--orange-800);
+ border-color: var(--orange-100);
+}
+.badge--present {
+ background: var(--green-50);
+ color: var(--green-800);
+ border-color: #b8e6d5;
+}
+.badge--absent {
+ background: var(--red-50);
+ color: var(--red-800);
+ border-color: #f5c5c5;
+}
+.badge--leave,
+.badge--holiday,
+.badge--weekend {
+ background: var(--blue-50);
+ color: var(--blue-800);
+ border-color: var(--blue-100);
+}
+.muted {
+ color: var(--ink-500);
+ font-size: 13px;
+}
+/* ------------------------------------------------------------------
+ 34 · ENTRY ROW ON NARROW SCREENS
+ ------------------------------------------------------------------ */
+@media (max-width: 1100px) {
+ .entry {
+ grid-template-columns: repeat(3, minmax(0, 1fr));
+ }
+}
+@media (max-width: 720px) {
+ .entry {
+ grid-template-columns: minmax(0, 1fr);
+ padding: var(--s4);
+ }
+ .entry__field--wide {
+ grid-column: span 1;
+ }
+}
+/* ------------------------------------------------------------------
+ 35 · BALANCE BAR
+ ------------------------------------------------------------------ */
+.balance-bar {
+ display: flex;
+ gap: var(--s6);
+ padding: var(--s4) var(--s5);
+ border-top: 1px solid var(--line);
+ background: var(--well);
+}
+.balance-bar__item {
+ display: flex;
+ flex-direction: column;
+}
+.balance-bar__label {
+ font-size: 11px;
+ font-weight: 500;
+ color: var(--ink-500);
+}
+.balance-bar__value {
+ font-size: 20px;
+ font-weight: 700;
+ letter-spacing: -0.02em;
+ font-variant-numeric: tabular-nums;
+}
+.balance-bar__value--bad {
+ color: var(--red-800);
+}
+.actions--inset {
+ padding: 0 var(--s5) var(--s5);
+}
+/* ------------------------------------------------------------------
+ 36 · APPROVAL CARD
+ ------------------------------------------------------------------ */
+.approval {
+ background: var(--sheet);
+ border: 1px solid var(--line);
+ border-radius: var(--r-lg);
+ box-shadow: var(--lift-1);
+ margin-bottom: var(--s4);
+ overflow: hidden;
+ transition: box-shadow var(--base);
+}
+.approval:hover {
+ box-shadow: var(--lift-2);
+}
+.approval__head {
+ display: flex;
+ align-items: center;
+ gap: var(--s3);
+ padding: var(--s4) var(--s5);
+ border-bottom: 1px solid var(--line-2);
+}
+.avatar--lg {
+ width: 36px;
+ height: 36px;
+ font-size: 12px;
+}
+.approval__who {
+ flex: 1;
+ min-width: 0;
+}
+.approval__name {
+ font-size: 15px;
+ font-weight: 650;
+ letter-spacing: -0.015em;
+}
+.approval__code {
+ font-size: 12px;
+ color: var(--ink-500);
+}
+.approval__facts {
+ display: grid;
+ grid-template-columns: repeat(5, minmax(0, 1fr));
+ gap: var(--s3);
+ padding: var(--s4) var(--s5);
+ background: var(--well);
+ border-bottom: 1px solid var(--line-2);
+}
+.fact {
+ display: flex;
+ flex-direction: column;
+}
+.fact__label {
+ font-size: 11px;
+ font-weight: 500;
+ color: var(--ink-500);
+}
+.fact__value {
+ font-size: 14px;
+ font-weight: 600;
+ font-variant-numeric: tabular-nums;
+}
+.approval__reason {
+ padding: var(--s3) var(--s5) var(--s4);
+ font-size: 13px;
+ color: var(--ink-700);
+ line-height: 1.5;
+}
+.approval__reason-label {
+ display: block;
+ font-size: 11px;
+ font-weight: 500;
+ color: var(--ink-500);
+ margin-bottom: 2px;
+}
+.approval__reject {
+ padding: var(--s4) var(--s5);
+ border-top: 1px solid var(--line-2);
+ background: var(--red-50);
+}
+.approval__actions {
+ display: flex;
+ justify-content: flex-end;
+ gap: var(--s2);
+ padding: var(--s3) var(--s5);
+ border-top: 1px solid var(--line-2);
+ background: var(--well);
+}
+.btn--danger {
+ color: var(--red-800);
+ background: var(--sheet);
+ border-color: #f0c9c9;
+}
+.btn--danger:hover {
+ background: var(--red-50);
+ border-color: var(--red-500);
+}
+/* ------------------------------------------------------------------
+ 37 · SMALL UTILITIES
+ ------------------------------------------------------------------ */
+.text-bad {
+ color: var(--red-800);
+ font-weight: 700;
+}
+.bar__fill--warn {
+ background: var(--orange-400);
+}
+.badge--submitted {
+ background: var(--blue-50);
+ color: var(--blue-800);
+ border-color: var(--blue-100);
+}
+/* ------------------------------------------------------------------
+ 38 · LEAVE ON NARROW SCREENS
+ ------------------------------------------------------------------ */
+@media (max-width: 900px) {
+ .approval__facts {
+ grid-template-columns: repeat(2, minmax(0, 1fr));
+ }
+ .balance-bar {
+ gap: var(--s4);
+ flex-wrap: wrap;
+ }
+}
+/* ------------------------------------------------------------------
+ 39 · CALCULATION PREVIEW
+ ------------------------------------------------------------------ */
+.preview {
+ border-top: 1px solid var(--line);
+ background: var(--well);
+}
+.preview__head {
+ padding: var(--s3) var(--s5);
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 0.03em;
+ text-transform: uppercase;
+ color: var(--ink-700);
+ border-bottom: 1px solid var(--line-2);
+}
+.preview__cols {
+ display: grid;
+ grid-template-columns: repeat(2, minmax(0, 1fr));
+ gap: var(--s5);
+ padding: var(--s4) var(--s5);
+}
+.preview__title {
+ font-size: 11px;
+ font-weight: 700;
+ letter-spacing: 0.06em;
+ text-transform: uppercase;
+ color: var(--ink-500);
+ margin-bottom: var(--s2);
+}
+.preview__note {
+ font-size: 11.5px;
+ color: var(--ink-500);
+ margin-bottom: var(--s2);
+}
+.preview__line {
+ display: flex;
+ justify-content: space-between;
+ gap: var(--s3);
+ padding: 4px 0;
+ font-size: 13px;
+ font-variant-numeric: tabular-nums;
+}
+.preview__line--strong {
+ margin-top: var(--s1);
+ padding-top: var(--s2);
+ border-top: 1px solid var(--line);
+ font-weight: 700;
+}
+.preview__net {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: var(--s4) var(--s5);
+ border-top: 2px solid var(--line);
+ border-left: 3px solid var(--orange-400);
+ font-size: 14px;
+ font-weight: 600;
+ background: var(--well);
+}
+.preview__net-value {
+ font-size: 24px;
+ font-weight: 700;
+ letter-spacing: -0.03em;
+ font-variant-numeric: tabular-nums;
+ font-family: var(--mono);
+}
+.preview__cur {
+ font-size: 12px;
+ font-weight: 600;
+ color: var(--ink-400);
+}
+/* ------------------------------------------------------------------
+ 40 · ROW ACTIONS
+ ------------------------------------------------------------------ */
+.row-actions {
+ display: flex;
+ gap: var(--s1);
+ flex-wrap: wrap;
+}
+.btn--sm {
+ height: 28px;
+ padding: 0 var(--s3);
+ font-size: 12px;
+}
+.strong {
+ font-weight: 700;
+}
+/* ------------------------------------------------------------------
+ 41 · PAYSLIP
+ A clean document that prints on A4 with no decoration bleed.
+ ------------------------------------------------------------------ */
+.body--plain {
+ background: var(--canvas);
+}
+.slip-page {
+ max-width: 720px;
+ margin: 0 auto;
+ padding: var(--s6) var(--s4);
+}
+.slip-toolbar {
+ display: flex;
+ justify-content: space-between;
+ margin-bottom: var(--s4);
+}
+.slip {
+ background: var(--sheet);
+ border: 1px solid var(--line);
+ border-radius: var(--r-lg);
+ box-shadow: var(--lift-3);
+ padding: var(--s7);
+}
+.slip__head {
+ display: flex;
+ align-items: flex-start;
+ justify-content: space-between;
+ padding-bottom: var(--s5);
+ border-bottom: 2px solid var(--blue-900);
+}
+.slip__company {
+ font-size: 20px;
+ font-weight: 700;
+ letter-spacing: -0.025em;
+ color: var(--blue-900);
+}
+.slip__doc {
+ font-size: 11px;
+ font-weight: 650;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ color: var(--ink-500);
+}
+.slip__number {
+ text-align: right;
+}
+.slip__period {
+ font-size: 13px;
+ color: var(--ink-500);
+}
+.slip__who {
+ display: grid;
+ grid-template-columns: repeat(2, minmax(0, 1fr));
+ gap: var(--s3) var(--s5);
+ padding: var(--s5) 0;
+ border-bottom: 1px solid var(--line);
+}
+.slip__field {
+ display: flex;
+ flex-direction: column;
+}
+.slip__label {
+ font-size: 10px;
+ font-weight: 650;
+ letter-spacing: 0.06em;
+ text-transform: uppercase;
+ color: var(--ink-500);
+}
+.slip__value {
+ font-size: 14px;
+ font-weight: 550;
+ margin-top: 1px;
+}
+.slip__cols {
+ display: grid;
+ grid-template-columns: repeat(2, minmax(0, 1fr));
+ gap: var(--s6);
+ padding: var(--s5) 0;
+}
+.slip__col-title {
+ font-size: 10px;
+ font-weight: 700;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: var(--ink-500);
+ margin-bottom: var(--s2);
+ padding-bottom: var(--s1);
+ border-bottom: 1px solid var(--line);
+}
+.slip__row {
+ display: flex;
+ justify-content: space-between;
+ gap: var(--s3);
+ padding: 4px 0;
+ font-size: 13px;
+ font-variant-numeric: tabular-nums;
+}
+.slip__row--total {
+ margin-top: var(--s2);
+ padding-top: var(--s2);
+ border-top: 1px solid var(--line);
+ font-weight: 700;
+}
+.slip__net {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: var(--s4) var(--s5);
+ margin: var(--s4) 0;
+ background: var(--blue-50);
+ border-left: 3px solid var(--orange-400);
+ border-radius: 0 var(--r-md) var(--r-md) 0;
+}
+.slip__net-label {
+ font-size: 14px;
+ font-weight: 600;
+ color: var(--blue-900);
+}
+.slip__net-value {
+ font-size: 28px;
+ font-weight: 700;
+ letter-spacing: -0.03em;
+ color: var(--blue-900);
+ font-variant-numeric: tabular-nums;
+ font-family: var(--mono);
+}
+.slip__cur {
+ font-size: 13px;
+ font-weight: 600;
+ color: var(--blue-700);
+}
+.slip__foot {
+ display: grid;
+ grid-template-columns: repeat(4, minmax(0, 1fr));
+ gap: var(--s3);
+ padding-top: var(--s5);
+ border-top: 1px solid var(--line);
+}
+.slip__note {
+ margin-top: var(--s5);
+ font-size: 11px;
+ color: var(--ink-400);
+ text-align: center;
+}
+/* ------------------------------------------------------------------
+ 42 · PRINT
+ Clean A4 output. No sidebar, no background colours, no shadows.
+ ------------------------------------------------------------------ */
+@media print {
+ .no-print { display: none !important; }
+ body { background: #fff; color: #000; }
+ .slip-page { padding: 0; max-width: none; }
+ .slip {
+ border: none;
+ box-shadow: none;
+ border-radius: 0;
+ padding: 0;
+ }
+ .slip__net {
+ background: none;
+ border: 1px solid #000;
+ border-left-width: 3px;
+ }
+ .page { animation: none; }
+}
+/* ------------------------------------------------------------------
+ 43 · PAYROLL ON NARROW SCREENS
+ ------------------------------------------------------------------ */
+@media (max-width: 860px) {
+ .preview__cols,
+ .slip__cols,
+ .slip__who {
+ grid-template-columns: minmax(0, 1fr);
+ }
+ .slip__foot {
+ grid-template-columns: repeat(2, minmax(0, 1fr));
+ }
+}
+/* ------------------------------------------------------------------
+ 44 · PROFILE
+ .panel has no padding of its own — every block placed directly
+ inside one has to supply it. These four did not, which is why
+ the content was touching the panel edges.
+ ------------------------------------------------------------------ */
+.profile__head {
+ display: flex;
+ align-items: center;
+ gap: var(--s4);
+ padding: var(--s5);
+ border-bottom: 1px solid var(--line);
+}
+.profile__who {
+ flex: 1;
+ min-width: 0;
+}
+.profile__name {
+ font-size: 22px;
+ font-weight: 700;
+ color: var(--ink-900);
+ letter-spacing: -0.025em;
+}
+.profile__meta {
+ font-size: 13px;
+ color: var(--ink-500);
+ margin-top: 2px;
+}
+.profile__actions {
+ display: flex;
+ flex-wrap: wrap;
+ gap: var(--s2);
+ padding: var(--s4) var(--s5);
+}
+.profile__actions:empty {
+ display: none;
+}
+.profile__actions .section__note {
+ flex: 0 1 auto;
+ order: 0;
+}
+/* ------------------------------------------------------------------
+ 45 · SEPARATION PANEL
+ ------------------------------------------------------------------ */
+.separation {
+ margin: 0 var(--s5) var(--s5);
+ background: var(--red-50);
+ border: 1px solid #f5c5c5;
+ border-radius: var(--r-md);
+}
+/* The entry row already pads itself; inside the red box that
+ doubles up, so trim it back. */
+.separation .entry {
+ padding: var(--s4);
+}
+/* ------------------------------------------------------------------
+ 46 · FACTS GRID
+ A grid item will not shrink below its content unless it is told
+ min-width: 0. Without it a long email ran straight over the
+ column beside it.
+ ------------------------------------------------------------------ */
+.facts {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+ gap: var(--s5) var(--s4);
+ align-items: start;
+ padding: var(--s5);
+}
+.facts .fact {
+ min-width: 0;
+}
+.facts .fact__value {
+ overflow-wrap: break-word;
+ line-height: 1.4;
+ margin-top: 1px;
+}
+/* ------------------------------------------------------------------
+ 47 · TIMELINE
+ ------------------------------------------------------------------ */
+.timeline {
+ position: relative;
+ padding: var(--s4) var(--s5) var(--s5) var(--s7);
+}
+.timeline::before {
+ content: '';
+ position: absolute;
+ left: 30px;
+ top: var(--s5);
+ bottom: var(--s5);
+ width: 1px;
+ background: var(--line);
+}
+.tl {
+ position: relative;
+ display: flex;
+ gap: var(--s3);
+ padding: var(--s3) 0;
+}
+.tl__dot {
+ position: absolute;
+ left: -18px;
+ top: 18px;
+ width: 9px;
+ height: 9px;
+ border-radius: 50%;
+ background: var(--ink-300);
+ box-shadow: 0 0 0 3px var(--sheet);
+}
+.tl:hover .tl__dot {
+ background: var(--ink-500);
+}
+.tl__dot--status { background: var(--blue-500); }
+.tl__dot--data { background: var(--orange-400); }
+.tl__body { min-width: 0; }
+.tl__title {
+ font-size: 13px;
+ font-weight: 600;
+ color: var(--ink-900);
+}
+.tl__note {
+ font-size: 12px;
+ color: var(--ink-700);
+ margin-top: 1px;
+ font-family: var(--mono);
+ overflow-wrap: break-word;
+}
+.tl__when {
+ font-size: 11px;
+ color: var(--ink-400);
+ margin-top: 2px;
+}
+/* ------------------------------------------------------------------
+ 48 · PROFILE ON NARROW SCREENS
+ ------------------------------------------------------------------ */
+@media (max-width: 860px) {
+ .profile__head {
+ flex-wrap: wrap;
+ }
+ .profile__actions .btn {
+ flex: 1 1 auto;
+ }
+}
+/* ------------------------------------------------------------------
+ 49 · TABS
+ ------------------------------------------------------------------ */
+.tabs {
+ display: flex;
+ gap: 0;
+ margin-bottom: var(--s4);
+ border-bottom: 2px solid var(--line);
+}
+.tab {
+ padding: var(--s2) var(--s4);
+ font-size: 13px;
+ font-weight: 550;
+ color: var(--ink-500);
+ background: none;
+ border: none;
+ border-bottom: 2px solid transparent;
+ margin-bottom: -2px;
+ cursor: pointer;
+ transition: color var(--fast), border-color var(--fast);
+}
+.tab:hover {
+ color: var(--ink-900);
+}
+.tab.is-active {
+ color: var(--blue-700);
+ font-weight: 650;
+ border-bottom-color: var(--blue-600);
+}
+/* ------------------------------------------------------------------
+ 50 · CHECKBOX FIELD
+ ------------------------------------------------------------------ */
+.check {
+ display: flex;
+ align-items: center;
+ gap: var(--s2);
+ height: 36px;
+ font-size: 13px;
+ color: var(--ink-700);
+ cursor: pointer;
+}
+.check input {
+ width: 16px;
+ height: 16px;
+ accent-color: var(--blue-600);
+ cursor: pointer;
+}
+/* ------------------------------------------------------------------
+ 51 · SECTION HEAD WITH AN ACTION ON THE RIGHT
+ The title stays left, any button goes right, and the note sits
+ on the line below both.
+ ------------------------------------------------------------------ */
+.section__head .btn,
+.section__head .row-actions {
+ margin-left: auto;
+ order: 2;
+}
+.section__head .row-actions {
+ align-items: center;
+}
+/* ------------------------------------------------------------------
+ 52 · SCROLLBAR
+ ------------------------------------------------------------------ */
+::-webkit-scrollbar {
+ width: 8px;
+ height: 8px;
+}
+::-webkit-scrollbar-track {
+ background: transparent;
+}
+::-webkit-scrollbar-thumb {
+ background: var(--ink-300);
+ border-radius: 4px;
+ border: 2px solid transparent;
+ background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+ background: var(--ink-400);
+ background-clip: content-box;
+}
+/* ------------------------------------------------------------------
+ 53 · SELECTION
+ ------------------------------------------------------------------ */
+::selection {
+ background: var(--blue-100);
+ color: var(--blue-950);
+}
+/* ------------------------------------------------------------------
+ 54 · CONTENT PADDING
+ .panel deliberately has no padding, so that tables and filter
+ bars can run edge to edge. Anything else dropped straight into
+ a panel has to bring its own. These are the blocks that did not.
+ ------------------------------------------------------------------ */
+#salary {
+ padding: var(--s4) var(--s5) var(--s5);
+}
+/* A nested heading inside an already-padded block should not be
+ indented a second time. */
+#salary .section__head {
+ padding: var(--s4) 0 var(--s2);
+ margin: 0;
+ background: none;
+ border-bottom: 1px solid var(--line-2);
+}
+#salary .table-wrap {
+ margin: 0 calc(var(--s5) * -1) calc(var(--s5) * -1);
+}
+/* ------------------------------------------------------------------
+ 55 · LONG VALUES
+ Emails, addresses, rejection reasons and audit values are
+ user-supplied and can be any length, so they have to wrap.
+ This uses break-word, never anywhere. The difference matters:
+ "anywhere" also tells the browser a column may shrink to a
+ single character, which collapses a table column into a
+ vertical stack of letters. "break-word" breaks a word only
+ when it genuinely does not fit, and leaves the column's
+ natural minimum width alone.
+ ------------------------------------------------------------------ */
+.table td:not(.num) {
+ overflow-wrap: break-word;
+}
+.fact__value,
+.slip__value,
+.approval__reason,
+.list__name,
+.tl__note {
+ overflow-wrap: break-word;
+ word-break: normal;
+}
+/* Flex children also refuse to shrink unless told to. */
+.person {
+ min-width: 0;
+}
+.person__name {
+ min-width: 0;
+ overflow-wrap: break-word;
+}
+/* Give the name room before anything else gives way. */
+.table td .person {
+ min-width: 140px;
+}
+/* Numbers never break mid-figure. */
+.num,
+.mono.num {
+ white-space: nowrap;
+}
+/* ------------------------------------------------------------------
+ 56 · PRINT, HARDENED
+ Section 42 covers the payslip. This covers printing any other
+ screen: drop the chrome and keep the content.
+ ------------------------------------------------------------------ */
+@media print {
+ .sidebar,
+ .topbar,
+ .filters,
+ .tabs,
+ .actions,
+ .profile__actions,
+ .row-actions,
+ .icon-btn,
+ .separation {
+ display: none !important;
+ }
+ .app {
+ display: block;
+ }
+ .page {
+ padding: 0;
+ max-width: none;
+ }
+ .panel,
+ .stat,
+ .approval {
+ box-shadow: none;
+ border: 1px solid #ccc;
+ break-inside: avoid;
+ }
+ .table th {
+ position: static;
+ }
+}
+/* ------------------------------------------------------------------
+ 57 · SMALL SCREENS, PROPERLY
+ The topbar and the page head were laid out as single rows with
+ no wrapping, so on a phone they pushed the whole page sideways.
+ ------------------------------------------------------------------ */
+@media (max-width: 860px) {
+ .topbar {
+ position: static;
+ height: auto;
+ flex-wrap: wrap;
+ gap: var(--s2);
+ padding: var(--s3) var(--s4);
+ }
+ .acting {
+ margin-left: auto;
+ min-width: 0;
+ }
+ .acting__label {
+ display: none;
+ }
+ .page__head {
+ flex-direction: column;
+ align-items: stretch;
+ gap: var(--s3);
+ }
+ /* Any select sitting in a page head takes the full width rather
+ than forcing the row wider than the screen. */
+ .page__head .select {
+ width: 100%;
+ min-width: 0;
+ }
+ .select {
+ max-width: 100%;
+ }
+ .nav__item {
+ overflow: hidden;
+ white-space: nowrap;
+ text-overflow: ellipsis;
+ font-size: 10px;
+ padding: 6px 2px;
+ }
+ .tabs {
+ overflow-x: auto;
+ scrollbar-width: none;
+ }
+ .tabs::-webkit-scrollbar {
+ display: none;
+ }
+}
+@media (max-width: 560px) {
+ .page {
+ padding: var(--s4) var(--s3);
+ }
+ .page__title {
+ font-size: 21px;
+ }
+ .profile__name {
+ font-size: 18px;
+ }
+ .profile__head,
+ .profile__actions,
+ .facts,
+ #salary {
+ padding-left: var(--s4);
+ padding-right: var(--s4);
+ }
+ .separation {
+ margin-left: var(--s4);
+ margin-right: var(--s4);
+ }
+ .section__head,
+ .filters,
+ .entry,
+ .balance-bar,
+ .list__row,
+ .bars {
+ padding-left: var(--s4);
+ padding-right: var(--s4);
+ }
+ /* One filter per line beats four cramped ones. */
+ .filters .select,
+ .filters .input,
+ .filters .btn {
+ flex: 1 1 100%;
+ min-width: 0;
+ }
+ .timeline {
+ padding-left: var(--s6);
+ padding-right: var(--s4);
+ }
+ .timeline::before {
+ left: 14px;
+ }
+ .slip {
+ padding: var(--s5);
+ }
+ .stats {
+ grid-template-columns: minmax(0, 1fr);
+ }
+}
+
+/* ===================================================================
+58. AUTH PAGES
+A single centred card on a plain background. No sidebar, no
+topbar — there is nothing to navigate to until you are in.
+=================================================================== */
+.body--auth {
+background: var(--canvas);
+}
+.auth {
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: var(--s4);
+padding: var(--s5);
+}
+.auth__card {
+width: 100%;
+max-width: 400px;
+padding: var(--s6);
+background: var(--sheet);
+border: 1px solid var(--line);
+border-radius: var(--r-lg);
+box-shadow: var(--lift-2);
+}
+.auth__brand {
+display: flex;
+align-items: center;
+gap: var(--s3);
+margin-bottom: var(--s6);
+}
+.auth__company {
+font-size: 15px;
+font-weight: 600;
+letter-spacing: -0.02em;
+color: var(--ink-900);
+}
+.auth__title {
+font-size: 24px;
+font-weight: 700;
+letter-spacing: -0.03em;
+line-height: 1.2;
+color: var(--ink-900);
+}
+.auth__sub {
+margin-top: var(--s1);
+margin-bottom: var(--s5);
+font-size: 13px;
+color: var(--ink-500);
+}
+.auth__field {
+margin-bottom: var(--s4);
+}
+.btn--block {
+width: 100%;
+justify-content: center;
+height: 40px;
+margin-top: var(--s2);
+}
+.auth__foot {
+margin-top: var(--s5);
+padding-top: var(--s4);
+border-top: 1px solid var(--line-2);
+font-size: 13px;
+color: var(--ink-500);
+text-align: center;
+}
+.auth__link {
+color: var(--blue-600);
+font-weight: 550;
+}
+.auth__link:hover {
+color: var(--blue-800);
+text-decoration: underline;
+}
+.auth__note {
+font-size: 11.5px;
+color: var(--ink-400);
+}
+/* On the auth pages the alert sits inside the card, so it needs
+no outer spacing of its own. */
+.auth__card .alert {
+margin-bottom: var(--s4);
+}
+/* ===================================================================
+58. AUTH PAGES
+A single centred card on a plain background. No sidebar, no
+topbar — there is nothing to navigate to until you are in.
+=================================================================== */
+.body--auth {
+background: var(--canvas);
+}
+.auth {
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: var(--s4);
+padding: var(--s5);
+}
+.auth__card {
+width: 100%;
+max-width: 400px;
+padding: var(--s6);
+background: var(--sheet);
+border: 1px solid var(--line);
+border-radius: var(--r-lg);
+box-shadow: var(--lift-2);
+}
+.auth__brand {
+display: flex;
+align-items: center;
+gap: var(--s3);
+margin-bottom: var(--s6);
+}
+.auth__company {
+font-size: 15px;
+font-weight: 600;
+letter-spacing: -0.02em;
+color: var(--ink-900);
+}
+.auth__title {
+font-size: 24px;
+font-weight: 700;
+letter-spacing: -0.03em;
+line-height: 1.2;
+color: var(--ink-900);
+}
+.auth__sub {
+margin-top: var(--s1);
+margin-bottom: var(--s5);
+font-size: 13px;
+color: var(--ink-500);
+}
+.auth__field {
+margin-bottom: var(--s4);
+}
+.btn--block {
+width: 100%;
+justify-content: center;
+height: 40px;
+margin-top: var(--s2);
+}
+.auth__foot {
+margin-top: var(--s5);
+padding-top: var(--s4);
+border-top: 1px solid var(--line-2);
+font-size: 13px;
+color: var(--ink-500);
+text-align: center;
+}
+.auth__link {
+color: var(--blue-600);
+font-weight: 550;
+}
+.auth__link:hover {
+color: var(--blue-800);
+text-decoration: underline;
+}
+.auth__note {
+font-size: 11.5px;
+color: var(--ink-400);
+}
+/* On the auth pages the alert sits inside the card, so it needs
+no outer spacing of its own. */
+.auth__card .alert {
+margin-bottom: var(--s4);
+}
+/* ===================================================================
+59. THE USER CHIP
+Replaces the old "Acting as" dropdown in the header. Who you
+are is now a fact, not a choice.
+=================================================================== */
+.who {
+display: flex;
+align-items: center;
+gap: var(--s3);
+min-width: 0;
+}
+.who__avatar {
+width: 30px;
+height: 30px;
+font-size: 11px;
+}
+.who__text {
+display: flex;
+flex-direction: column;
+line-height: 1.25;
+min-width: 0;
+}
+.who__name {
+font-size: 13px;
+font-weight: 600;
+color: var(--ink-900);
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+.who__role {
+font-size: 11px;
+color: var(--ink-500);
+}
+@media (max-width: 720px) {
+.who__text {
+  display: none;
+}
+}

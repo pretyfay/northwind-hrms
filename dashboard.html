@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard · SISCO HRMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+<div class="sidebar__brand">
+<span class="sidebar__mark">S</span>
+<span class="sidebar__name">SISCO HR</span>
+</div>
+<nav class="nav">
+<div class="nav__group">
+<div class="nav__label">Main</div>
+<a class="nav__item is-active" href="dashboard.html">
+Dashboard
+</a>
+<a class="nav__item" href="index.html">Employees</a>
+<a class="nav__item" href="attendance.html">Attendance</a>
+</div>
+<div class="nav__group">
+<div class="nav__label">Leave</div>
+<a class="nav__item" href="leave-requests.html">Requests</a>
+<a class="nav__item" href="leave-approval.html">Approval</a>
+<a class="nav__item" href="leave-balances.html">Balances</a>
+</div>
+<div class="nav__group">
+<div class="nav__label">Payroll</div>
+<a class="nav__item" href="payroll.html">Processing</a>
+
+</div>
+<div class="nav__group">
+<div class="nav__label">Masters</div>
+<a class="nav__item" href="#">Departments</a>
+<a class="nav__item" href="#">Designations</a>
+<a class="nav__item" href="#">Leave types</a>
+</div>
+<div class="nav__group">
+<div class="nav__label">System</div>
+<a class="nav__item" href="#">Reports</a>
+<a class="nav__item" href="#">Audit log</a>
+</div>
+</nav>
+<div class="sidebar__foot">Trainee build · 2026</div>
+</aside>
+<div class="main">
+<header class="topbar">
+<div class="topbar__crumb">
+<span class="topbar__crumb-root">HR</span>
+<span class="topbar__crumb-sep">/</span>
+<span class="topbar__crumb-here">Dashboard</span>
+</div>
+<label class="acting">
+<span class="acting__label">Acting as</span>
+<select class="select select--ghost" id="userSwitcher">
+</select>
+</label>
+</header>
+<main class="page">
+<div class="page__head">
+<div>
+<h1 class="page__title">Dashboard</h1>
+<p class="page__sub" id="asOf">&nbsp;</p>
+</div>
+</div>
+<div class="alert" id="alert" hidden></div>
+<!-- HERO -->
+<section class="hero">
+<div class="hero__label">Current month payroll</div>
+<div class="hero__value">
+<span class="hero__cur">SAR</span>
+<span id="monthPayroll">—</span>
+</div>
+<div class="hero__note" id="monthName">&nbsp;</div>
+</section>
+<!--  WORKFORCE  -->
+<h2 class="group-title">Workforce</h2>
+<div class="stats">
+<div class="stat">
+<div class="stat__label">Total employees</div>
+<div class="stat__value" id="totalEmployees">—</div>
+</div>
+<div class="stat">
+<div class="stat__label">Active</div>
+<div class="stat__value stat__value--ok"
+id="activeEmployees">—</div>
+</div>
+
+<div class="stat">
+<div class="stat__label">Inactive</div>
+<div class="stat__value" id="inactiveEmployees">—</div>
+</div>
+<div class="stat">
+<div class="stat__label">On leave today</div>
+<div class="stat__value" id="onLeaveToday">—</div>
+</div>
+</div>
+<!--  TODAY  -->
+<h2 class="group-title">Attendance today</h2>
+<div class="stats stats--2">
+<div class="stat">
+<div class="stat__label">Present</div>
+<div class="stat__value stat__value--ok"
+id="presentToday">—</div>
+</div>
+<div class="stat">
+<div class="stat__label">Absent</div>
+<div class="stat__value stat__value--bad"
+id="absentToday">—</div>
+</div>
+</div>
+<!--  PENDING  -->
+<h2 class="group-title">Waiting for approval</h2>
+<div class="stats stats--2">
+<a class="stat stat--link" href="#">
+<div class="stat__label">Leave requests</div>
+<div class="stat__value stat__value--wait"
+id="pendingLeave">—</div>
+</a>
+<a class="stat stat--link" href="#">
+<div class="stat__label">Payroll records</div>
+<div class="stat__value stat__value--wait"
+id="pendingPayroll">—</div>
+</a>
+</div>
+<!--  SPLIT  -->
+<div class="split">
+<section class="panel">
+<div class="section__head">
+<h2 class="section__title">Headcount by department</h2>
+</div>
+<div class="bars" id="deptBars">
+<div class="state">Loading…</div>
+</div>
+</section>
+<section class="panel">
+<div class="section__head">
+<h2 class="section__title">Recently added</h2>
+<a class="section__link" href="index.html">View all</a>
+</div>
+<div class="list" id="recentList">
+<div class="state">Loading…</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</div>
+<script type="module" src="js/dashboard.js"></script>
+<script type="module" src="js/nav.js"></script>
+</body>
+</html>
+

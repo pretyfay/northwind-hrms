@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Attendance · SISCO HRMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+<div class="sidebar__brand">
+<span class="sidebar__mark">S</span>
+<span class="sidebar__name">SISCO HR</span>
+</div>
+<nav class="nav">
+<div class="nav__group">
+<div class="nav__label">Main</div>
+<a class="nav__item" href="dashboard.html">Dashboard</a>
+<a class="nav__item" href="index.html">Employees</a>
+<a class="nav__item is-active" href="attendance.html">
+Attendance
+</a>
+</div>
+<div class="nav__group">
+<div class="nav__label">Leave</div>
+<a class="nav__item" href="leave-requests.html">Requests</a>
+<a class="nav__item" href="leave-approval.html">Approval</a>
+<a class="nav__item" href="leave-balances.html">Balances</a>
+</div>
+<div class="nav__group">
+<div class="nav__label">Payroll</div>
+<a class="nav__item" href="payroll.html">Processing</a>
+
+</div>
+<div class="nav__group">
+<div class="nav__label">Masters</div>
+<a class="nav__item" href="#">Departments</a>
+<a class="nav__item" href="#">Designations</a>
+<a class="nav__item" href="#">Leave types</a>
+</div>
+<div class="nav__group">
+<div class="nav__label">System</div>
+<a class="nav__item" href="#">Reports</a>
+<a class="nav__item" href="#">Audit log</a>
+</div>
+</nav>
+<div class="sidebar__foot">Trainee build · 2026</div>
+</aside>
+<div class="main">
+<header class="topbar">
+<div class="topbar__crumb">
+<span class="topbar__crumb-root">HR</span>
+<span class="topbar__crumb-sep">/</span>
+<span class="topbar__crumb-here">Attendance</span>
+</div>
+<label class="acting">
+<span class="acting__label">Acting as</span>
+<select class="select select--ghost" id="userSwitcher">
+</select>
+</label>
+</header>
+<main class="page">
+<div class="page__head">
+<div>
+<h1 class="page__title">Attendance</h1>
+<p class="page__sub" id="rowCount">&nbsp;</p>
+</div>
+</div>
+<div class="alert" id="alert" hidden></div>
+<!--  ENTRY FORM  -->
+<section class="panel section">
+<div class="section__head">
+<h2 class="section__title">Record attendance</h2>
+<p class="section__note" id="hoursPreview">
+Working hours: 0.00
+</p>
+</div>
+<form id="attendanceForm" novalidate>
+<div class="entry">
+<div class="entry__field entry__field--wide">
+<label class="lbl" for="employeeId">Employee</label>
+<select class="select select--block" id="employeeId"
+name="employeeId">
+<option value="">Select…</option>
+</select>
+<p class="err" data-err="employeeId"></p>
+</div>
+<div class="entry__field">
+<label class="lbl" for="date">Date</label>
+<input class="input" id="date" name="date"
+type="date">
+<p class="err" data-err="date"></p>
+</div>
+<div class="entry__field">
+<label class="lbl" for="checkIn">Check in</label>
+<input class="input" id="checkIn" name="checkIn"
+type="time">
+<p class="err" data-err="checkIn"></p>
+</div>
+<div class="entry__field">
+<label class="lbl" for="checkOut">Check out</label>
+<input class="input" id="checkOut" name="checkOut"
+type="time">
+<p class="err" data-err="checkOut"></p>
+</div>
+<div class="entry__field">
+<label class="lbl" for="status">Status</label>
+<select class="select select--block" id="status"
+name="status">
+</select>
+<p class="err" data-err="status"></p>
+</div>
+<div class="entry__field entry__field--wide">
+<label class="lbl" for="remarks">Remarks</label>
+<input class="input" id="remarks" name="remarks"
+type="text" placeholder="Optional">
+</div>
+<div class="entry__field entry__field--action">
+<button class="btn btn--primary" type="submit"
+id="saveBtn">
+Save record
+</button>
+</div>
+</div>
+</form>
+</section>
+<!--  RECORDS  -->
+<section class="panel">
+<div class="filters">
+<select class="select" id="employeeFilter">
+<option value="">All employees</option>
+</select>
+<input class="input input--date" id="dateFilter"
+type="date">
+<select class="select" id="statusFilter">
+<option value="">All statuses</option>
+</select>
+<button class="btn" type="button" id="clearFilters">
+Clear
+</button>
+</div>
+<div class="table-wrap">
+<table class="table">
+<thead>
+<tr>
+<th>Date</th>
+<th>Employee</th>
+<th>Check in</th>
+<th>Check out</th>
+<th class="num">Hours</th>
+<th class="w-status">Status</th>
+<th>Remarks</th>
+<th class="w-action"></th>
+</tr>
+</thead>
+<tbody id="attendanceRows"></tbody>
+</table>
+</div>
+</section>
+</main>
+</div>
+</div>
+<script type="module" src="js/attendance.js"></script>
+<script type="module" src="js/nav.js"></script>
+</body>
+</html>

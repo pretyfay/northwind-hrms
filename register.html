@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register &middot; SISCO HRMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?
+family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="body--auth">
+<main class="auth">
+<section class="auth__card">
+<div class="auth__brand">
+<span class="sidebar__mark">S</span>
+<span class="auth__company">SISCO HRMS</span>
+</div>
+<h1 class="auth__title">Create your account</h1>
+<p class="auth__sub">
+Use the work email HR has on file for you
+</p>
+<div class="alert" id="alert" hidden></div>
+<form id="registerForm" novalidate>
+<div class="auth__field">
+<label class="lbl" for="email">Work email</label>
+<input class="input select--block" id="email"
+name="email" type="email"
+autocomplete="username"
+placeholder="name@siscosaudi.com">
+<p class="err" data-err="email"></p>
+</div>
+<div class="auth__field">
+<label class="lbl" for="password">Password</label>
+<input class="input select--block" id="password"
+name="password" type="password"
+autocomplete="new-password">
+<p class="hint">At least 8 characters</p>
+<p class="err" data-err="password"></p>
+</div>
+<div class="auth__field">
+<label class="lbl" for="confirm">Confirm password</label>
+<input class="input select--block" id="confirm"
+name="confirm" type="password"
+autocomplete="new-password">
+<p class="err" data-err="confirm"></p>
+</div>
+<button class="btn btn--primary btn--block" type="submit"
+id="submitBtn">
+Create account
+</button>
+</form>
+<p class="auth__foot">
+Already have an account?
+<a class="auth__link" href="login.html">Sign in</a>
+</p>
+</section>
+<p class="auth__note">
+SISCO Human Resource Management System
+</p>
+</main>
+<script type="module" src="js/register.js"></script>
+</body>
+</html>

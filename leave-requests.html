@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leave requests · SISCO HRMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?
+family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+<div class="sidebar__brand">
+<span class="sidebar__mark">S</span>
+<span class="sidebar__name">SISCO HR</span>
+</div>
+<nav class="nav">
+<div class="nav__group">
+<div class="nav__label">Main</div>
+<a class="nav__item" href="dashboard.html">Dashboard</a>
+<a class="nav__item" href="index.html">Employees</a>
+<a class="nav__item" href="attendance.html">Attendance</a>
+</div>
+<div class="nav__group">
+<div class="nav__label">Leave</div>
+<a class="nav__item is-active" href="leave-requests.html">
+Requests
+</a>
+<a class="nav__item" href="leave-approval.html">Approval</a>
+<a class="nav__item" href="leave-balances.html">Balances</a>
+</div>
+<div class="nav__group">
+<div class="nav__label">Masters</div>
+<a class="nav__item" href="#">Departments</a>
+<a class="nav__item" href="#">Designations</a>
+<a class="nav__item" href="#">Leave types</a>
+</div>
+<div class="nav__group">
+<div class="nav__label">System</div>
+</div>
+<div class="nav__group">
+<div class="nav__label">Payroll</div>
+<a class="nav__item" href="payroll.html">Processing</a>
+
+<a class="nav__item" href="#">Audit log</a>
+</div>
+</nav>
+<div class="sidebar__foot">Trainee build · 2026</div>
+</aside>
+<div class="main">
+<header class="topbar">
+<div class="topbar__crumb">
+<span class="topbar__crumb-root">Leave</span>
+<span class="topbar__crumb-sep">/</span>
+<span class="topbar__crumb-here">Requests</span>
+</div>
+<label class="acting">
+<span class="acting__label">Acting as</span>
+<select class="select select--ghost" id="userSwitcher">
+</select>
+</label>
+</header>
+<main class="page">
+<div class="page__head">
+<div>
+<h1 class="page__title">Leave requests</h1>
+<p class="page__sub" id="rowCount">&nbsp;</p>
+</div>
+</div>
+<div class="alert" id="alert" hidden></div>
+<section class="panel section">
+<div class="section__head">
+<h2 class="section__title">New request</h2>
+</div>
+<form id="leaveForm" novalidate>
+<div class="grid">
+<div class="field2">
+<label class="lbl" for="employeeId">Employee</label>
+<select class="select select--block" id="employeeId"
+name="employeeId">
+<option value="">Select…</option>
+</select>
+<p class="err" data-err="employeeId"></p>
+</div>
+<div class="field2">
+<label class="lbl" for="leaveTypeId">Leave type</label>
+<select class="select select--block" id="leaveTypeId"
+name="leaveTypeId">
+<option value="">Select…</option>
+</select>
+<p class="err" data-err="leaveTypeId"></p>
+</div>
+<div class="field2">
+<label class="lbl" for="fromDate">From</label>
+<input class="input" id="fromDate" name="fromDate"
+type="date">
+<p class="err" data-err="fromDate"></p>
+</div>
+<div class="field2">
+<label class="lbl" for="toDate">To</label>
+<input class="input" id="toDate" name="toDate"
+type="date">
+<p class="err" data-err="toDate"></p>
+</div>
+<div class="field2 field2--wide">
+<label class="lbl" for="reason">Reason</label>
+<input class="input" id="reason" name="reason"
+type="text" placeholder="Family trip">
+<p class="err" data-err="reason"></p>
+</div>
+</div>
+<div class="balance-bar" id="balanceBar">
+<div class="balance-bar__item">
+<span class="balance-bar__label">Days requested</span>
+<span class="balance-bar__value" id="daysOut">0</span>
+</div>
+<div class="balance-bar__item">
+<span class="balance-bar__label">Balance available</span>
+<span class="balance-bar__value" id="balanceOut">—</span>
+</div>
+<div class="balance-bar__item">
+<span class="balance-bar__label">After this request</span>
+<span class="balance-bar__value" id="afterOut">—</span>
+</div>
+</div>
+<div class="actions actions--inset">
+<button class="btn" type="submit" id="draftBtn">
+Save as draft
+</button>
+<button class="btn btn--primary" type="submit"
+id="submitBtn">
+Submit for approval
+</button>
+</div>
+</form>
+</section>
+<section class="panel">
+<div class="filters">
+<select class="select" id="employeeFilter">
+<option value="">All employees</option>
+</select>
+<select class="select" id="typeFilter">
+<option value="">All leave types</option>
+</select>
+<select class="select" id="statusFilter">
+<option value="">All statuses</option>
+<option value="Draft">Draft</option>
+<option value="Submitted">Submitted</option>
+<option value="Pending Approval">Pending Approval</option>
+<option value="Approved">Approved</option>
+<option value="Rejected">Rejected</option>
+</select>
+<button class="btn" type="button" id="clearFilters">
+Clear
+</button>
+</div>
+<div class="table-wrap">
+<table class="table">
+<thead>
+<tr>
+<th>Employee</th>
+<th>Type</th>
+<th>From</th>
+<th>To</th>
+<th class="num">Days</th>
+<th>Reason</th>
+<th class="w-status">Status</th>
+</tr>
+</thead>
+<tbody id="leaveRows"></tbody>
+</table>
+</div>
+</section>
+</main>
+</div>
+</div>
+<script type="module" src="js/leave-requests.js"></script>
+<script type="module" src="js/nav.js"></script>
+</body>
+</html>
