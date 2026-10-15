@@ -1,11 +1,12 @@
-# SISCO HRMS
+# Northwind HRMS
+All company and personal data in this project is invented.
 A web based Human Resource Management System covering the full
 employee lifecycle: onboarding, employee master, attendance,
 leave, payroll, approval, processing, payslip and history.
 Two kinds of user sign in. HR runs the company's records.
 Employees file their own leave and read their own history.
 Built as a trainee project at SISCO, Dammam.
-**Live:** https://sisco-hrms.vercel.app
+**Live:** https://REPLACE-ME.vercel.app
 ---
 ## What it does
 ### HR
@@ -267,9 +268,9 @@ that already exist in the `employees` table.
 Password for all three: `Sisco2026!`
 | Email | Role | Shows |
 |---|---|---|
-| `Fatima.Almuallim@siscosaudi.com` | HR User | The whole console |
-| `Razique.Raza@siscosaudi.com` | HR Manager | Same, plus manager-only actions |
-| `Reem.Alshehri@siscosaudi.com` | Employee | Self-service only |
+| `Fatima.Almuallim@northwind.com.sa` | HR User | The whole console |
+| `Razique.Raza@northwind.com.sa` | HR Manager | Same, plus manager-only actions |
+| `Reem.Alshehri@northwind.com.sa` | Employee | Self-service only |
 Two accounts in the demo data are deliberately not `Active` —
 one `Pending Approval`, one `Draft`. They have accounts and
 cannot sign in. That is the rule that an employee who has not
