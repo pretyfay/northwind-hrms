@@ -5,7 +5,7 @@ leave, payroll, approval, processing, payslip and history.
 Two kinds of user sign in. HR runs the company's records.
 Employees file their own leave and read their own history.
 Built as a trainee project at SISCO, Dammam.
-**Live:** https://REPLACE-ME.vercel.app
+**Live:** https://sisco-hrms.vercel.app
 ---
 ## What it does
 ### HR
